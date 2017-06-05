@@ -1,0 +1,727 @@
+
+POST	>> create
+GET	>> getting info
+PUT	>> update
+DELETE	>> delete
+
+
+
+=======================================================================================================================================================
+for getting the info about all server in the account >>
+=======================================================================================================================================================
+
+curl -H "X-Auth-Token: <<<< TOKEN_ID >>>>" https://api.cloud.online.net/servers -i
+
+=======================================================================================================================================================
+server information >> [ https://api.scaleway.com/{resources} ]
+=======================================================================================================================================================
+
+curl -H "X-Auth-Token: <<<< TOKEN_ID >>>>" https://api.scaleway.com/servers -i
+curl -H 'X-Auth-Token: <<<< TOKEN_ID >>>>' -H 'Content-Type: application/json' https://api.scaleway.com/servers -i
+
+curl -X GET -H 'X-Auth-Token: <<<< TOKEN_ID >>>>' -H 'Content-Type: application/json' https://api.scaleway.com/servers -i
+
+
+servers
+ips
+volumes
+images
+security_groups
+
+
+=======================================================================================================================================================
+account information >> [ https://account.scaleway.com/{resources} ]
+=======================================================================================================================================================
+
+curl -X GET -H "X-Auth-Token: <<<< TOKEN_ID >>>>" -H "Content-Type: application/json" https://account.scaleway.com/tokens -i
+
+get the info about users, organisations,ssh, etc... >>
+
+curl -X GET -H "X-Auth-Token: <<<< TOKEN_ID >>>>" -H "Content-Type: application/json" https://account.scaleway.com/organizations -i
+
+
+=======================================================================================================================================================
+action >> [ https://account.scaleway.com/{resources}/action -d '{"action":"poweroff,reboot,poweron"}' ]
+=======================================================================================================================================================
+
+curl -X POST -H 'X-Auth-Token: <<<< TOKEN_ID >>>>' -H 'Content-Type: application/json' https://api.scaleway.com/servers/<<<< SERVER_ID >>>>/action -d '{"action":"poweroff"}' -i
+
+
+
+
+=======================================================================================================================================================
+image checking and launching an server and update its properties
+=======================================================================================================================================================
+
+****************************************************************************************************
+checking the images >>
+****************************************************************************************************
+
+
+curl -H 'X-Auth-Token: <<<< TOKEN_ID >>>>' https://api.cloud.online.net/images
+
+****************************************************************************************************
+result >>
+****************************************************************************************************
+
+{
+   "images":[
+      { },
+      {
+         "default_bootscript":{
+            "kernel":"http://192.168.1.1/kernel/x86_64-4.4.38-std-1/vmlinuz-4.4.38-std-1",
+            "initrd":"http://192.168.1.1/initrd/initrd-Linux-x86_64-v3.12.3.gz",
+            "default":false,
+            "bootcmdargs":"LINUX_COMMON ip=:::::eth0: boot=local",
+            "architecture":"x86_64",
+            "title":"x86_64 4.4.38 std #1 (stable)",
+            "dtb":"",
+            "organization":"444444-33333333333-11111111111-432-23523-545555555",
+            "id":"<<<< BASE_ID >>>>",
+            "public":false
+         },
+         "creation_date":"2017-01-05T10:10:59.907933+00:00",
+         "name":"Ubuntu Trusty (14.04)",
+         "modification_date":"2017-01-05T10:10:59.907933+00:00",
+         "organization":"asdlkgnvhfvosdhnklvndfvbv-sdgvds",
+         "extra_volumes":"[]",
+         "arch":"x86_64",
+         "id":"<<<< IMAGE_ID >>>>",
+         "root_volume":{
+            "size":50000000000,
+            "id":"sdgdsfgb-dfvadfsgvb-sdgvsdfgvb-dsfgvsdgv",
+            "volume_type":"l_ssd",
+            "name":"x86_64-ubuntu-trusty-2017-01-05_10:08"
+         },
+         "public":true
+      },
+      { },
+      { },
+      { }
+   ]
+}
+
+
+****************************************************************************************************
+take the following info >>
+****************************************************************************************************
+
+         "name":"Ubuntu Trusty (14.04)"
+         "architecture":"x86_64"
+         "id":"<<<< IMAGE_ID >>>>"
+
+
+****************************************************************************************************
+take your organization id for further process >>
+****************************************************************************************************
+
+
+curl -X GET -H "X-Auth-Token: <<<< TOKEN_ID >>>>" -H "Content-Type: application/json" https://account.scaleway.com/organizations -i
+
+****************************************************************************************************
+take the following info >>
+****************************************************************************************************
+
+         "id":"<<<< ORGANIZATION_ID >>>>"
+
+
+****************************************************************************************************
+creating the server >>
+****************************************************************************************************
+
+To create a server, you have to fill out the following input:
+
+    A server name
+    An Organization ID
+    An Image ID
+    Tags (Optional)
+
+****************************************************************************************************
+request >>
+****************************************************************************************************
+
+
+curl https://api.cloud.online.net/servers \
+-H "X-Auth-Token: <<<< TOKEN_ID >>>>" \
+-H "Content-Type: application/json" \
+-d '{
+   "name":"new_test",
+   "image":"<<<< IMAGE_ID >>>>",
+   "tags":[
+      "temporary",
+      "test"
+   ],
+   "organization":"<<<< ORGANIZATION_ID >>>>"
+}'
+
+
+
+****************************************************************************************************
+result >>
+****************************************************************************************************
+
+
+HTTP/1.1 201 CREATED
+Server: Tengine
+Date: Tue, 28 Mar 2017 05:37:55 GMT
+Content-Type: application/json
+Content-Length: 2423
+Connection: keep-alive
+Location: https://api.cloud.online.net/servers/<<<< SERVER_ID >>>>
+Strict-Transport-Security: max-age=15552000
+
+{
+   "server":{
+      "state_detail":"",
+      "image":{
+         "default_bootscript":{
+            "kernel":"http://192.168.1.1/kernel/x86_64-4.4.38-std-1/vmlinuz-4.4.38-std-1",
+            "initrd":"http://192.168.1.1/initrd/initrd-Linux-x86_64-v3.12.3.gz",
+            "default":false,
+            "bootcmdargs":"LINUX_COMMON ip=:::::eth0: boot=local",
+            "architecture":"x86_64",
+            "title":"x86_64 4.4.38 std #1 (stable)",
+            "dtb":"",
+            "organization":"444444-33333333333-11111111111-432-23523-545555555",
+            "id":"<<<< BASE_ID >>>>",
+            "public":false
+         },
+         "creation_date":"2017-01-05T10:10:59.907933+00:00",
+         "name":"Ubuntu Trusty (14.04)",
+         "modification_date":"2017-01-05T10:10:59.907933+00:00",
+         "organization":"asdlkgnvhfvosdhnklvndfvbv-sdgvds",
+         "extra_volumes":"[]",
+         "arch":"x86_64",
+         "id":"<<<< IMAGE_ID >>>>",
+         "root_volume":{
+            "size":50000000000,
+            "id":"sdgdsfgb-dfvadfsgvb-sdgvsdfgvb-dsfgvsdgv",
+            "volume_type":"l_ssd",
+            "name":"x86_64-ubuntu-trusty-2017-01-05_10:08"
+         },
+         "public":true
+      },
+      "creation_date":"2017-03-28T05:37:53.324806+00:00",
+      "public_ip":null,
+      "private_ip":null,
+      "id":"<<<< SERVER_ID >>>>",
+      "dynamic_ip_required":true,
+      "modification_date":"2017-03-28T05:37:53.986331+00:00",
+      "enable_ipv6":false,
+      "hostname":"new-test",
+      "state":"stopped",
+      "bootscript":{
+         "kernel":"http://192.168.1.1/kernel/x86_64-4.4.38-std-1/vmlinuz-4.4.38-std-1",
+         "initrd":"http://192.168.1.1/initrd/initrd-Linux-x86_64-v3.12.3.gz",
+         "default":false,
+         "bootcmdargs":"LINUX_COMMON ip=:::::eth0: boot=local",
+         "architecture":"x86_64",
+         "title":"x86_64 4.4.38 std #1 (stable)",
+         "dtb":"",
+         "organization":"444444-33333333333-11111111111-432-23523-545555555",
+         "id":"<<<< BASE_ID >>>>",
+         "public":false
+      },
+      "location":null,
+      "ipv6":null,
+      "commercial_type":"VC1S",
+      "tags":[
+         "temporary",
+         "test"
+      ],
+      "arch":"x86_64",
+      "extra_networks":[
+
+      ],
+      "name":"new_test",
+      "volumes":{
+         "0":{
+            "size":50000000000,
+            "name":"x86_64-ubuntu-trusty-2017-01-05_10:08",
+            "modification_date":"2017-03-28T05:37:53.324806+00:00",
+            "organization":"<<<< ORGANIZATION_ID >>>>",
+            "export_uri":null,
+            "creation_date":"2017-03-28T05:37:53.324806+00:00",
+            "id":"<<<< VOLUME_1_ID >>>>",
+            "volume_type":"l_ssd",
+            "server":{
+               "id":"<<<< SERVER_ID >>>>",
+               "name":"new_test"
+            }
+         }
+      },
+      "security_group":{
+         "id":"3979f992-4490-4810-a1c6-fae593cfdd80",
+         "name":"Default security group"
+      },
+      "organization":"<<<< ORGANIZATION_ID >>>>"
+   }
+}
+
+
+****************************************************************************************************
+take the following info >>
+****************************************************************************************************
+server name >>         
+            "name":"new_test"
+server ID >>
+            "id":"<<<< SERVER_ID >>>>"
+ID >>
+            "id":"<<<< BASE_ID >>>>"
+image ID >>
+            "id":"<<<< IMAGE_ID >>>>"
+image name >>
+            "name":"Ubuntu Trusty (14.04)"
+volumes ID-1 >>
+            "id":"<<<< VOLUME_1_ID >>>>"
+volumes ID-2 >>
+<< it  will create in next step >>
+
+
+
+****************************************************************************************************
+create volume >>
+****************************************************************************************************
+
+To create a volume, you have to fill out the following input:
+
+    A volume name
+    An Organization ID
+    A size in GB
+    The volume type - LSSD (Local solid state drive) or LHDD (Local spinning disk)
+
+
+****************************************************************************************************
+request >>
+****************************************************************************************************
+
+curl https://api.cloud.online.net/volumes \
+-H "X-Auth-Token: <<<< TOKEN_ID >>>>" \
+-H "Content-Type: application/json" \
+-d '{
+"name": "new_test_volume",
+"organization": "<<<< ORGANIZATION_ID >>>>",
+"size": 5000000000,
+"volume_type": "l_ssd"
+}'
+
+****************************************************************************************************
+result >>
+****************************************************************************************************
+
+
+HTTP/1.1 201 CREATED
+Server: Tengine
+Date: Tue, 28 Mar 2017 05:44:26 GMT
+Content-Type: application/json
+Content-Length: 334
+Connection: keep-alive
+Location: https://api.cloud.online.net/volumes/<<<< VOLUME_2_ID >>>>
+Strict-Transport-Security: max-age=15552000
+
+{
+   "volume":{
+      "size":5000000000,
+      "name":"new_test_volume",
+      "modification_date":"2017-03-28T05:44:26.511246+00:00",
+      "organization":"<<<< ORGANIZATION_ID >>>>",
+      "export_uri":null,
+      "creation_date":"2017-03-28T05:44:26.511246+00:00",
+      "id":"<<<< VOLUME_2_ID >>>>",
+      "volume_type":"l_ssd",
+      "server":null
+   }
+}
+
+****************************************************************************************************
+take the following info >>
+****************************************************************************************************
+
+volumes ID-2 >>
+           "id":"<<<< VOLUME_2_ID >>>>"
+
+
+****************************************************************************************************
+attach an additional volume to an existing server >>
+****************************************************************************************************
+
+required info >>
+
+server name >>         
+            "name":"new_test"
+server ID >>
+            "id":"<<<< SERVER_ID >>>>"
+ID >>
+            "id":"<<<< BASE_ID >>>>"
+image ID >>
+            "id":"<<<< IMAGE_ID >>>>"
+image name >>
+            "name":"Ubuntu Trusty (14.04)"
+volumes ID-1 >>
+            "id":"<<<< VOLUME_1_ID >>>>"
+volumes ID-2 >>
+            "id":"<<<< VOLUME_2_ID >>>>"
+organization ID >>
+            "id":"<<<< ORGANIZATION_ID >>>>"
+
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+error-1 >>
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+{"fields": {"dynamic_ip_required": ["required key not provided"], "modification_date": ["required key not provided"], "hostname": ["required key not provided"], "creation_date": ["required key not provided"], "bootscript": ["required key not provided"], "commercial_type": ["required key not provided"], "arch": ["required key not provided"]}, "message": "Validation Error", "type": "invalid_request_error"}
+
+
+it means that we need to add some extra information for updateing, so take those informnation from previous step which we create the server
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+error-2 >>
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+{"fields": {"dynamic_public_ip": ["extra keys not allowed"]}, "message": "Validation Error", "type": "invalid_request_error"}
+
+
+it means this kind of key:value are not available for the API query
+
+
+
+
+
+
+****************************************************************************************************
+request >>
+****************************************************************************************************
+
+curl https://api.cloud.online.net/servers/<<<< SERVER_ID >>>> \
+-H "X-Auth-Token: <<<< TOKEN_ID >>>>" \
+-H "Content-Type: application/json" \
+-X PUT \
+-d '{
+   "id":"<<<< BASE_ID >>>>",
+   "image":{
+      "id":"<<<< IMAGE_ID >>>>",
+      "name":"Ubuntu Trusty (14.04)"
+   },
+   "creation_date":"2017-03-28T05:37:53.324806+00:00",
+   "modification_date":"2017-03-28T05:37:53.986331+00:00",
+   "hostname":"new-test",
+   "name":"new_test",
+   "organization":"<<<< ORGANIZATION_ID >>>>",
+   "private_ip":null,
+   "public_ip":null,
+   "state":"stopped",
+   "dynamic_ip_required":false,
+   "state_detail":"",
+   "bootscript":{
+      "kernel":"http://192.168.1.1/kernel/x86_64-4.4.38-std-1/vmlinuz-4.4.38-std-1",
+      "initrd":"http://192.168.1.1/initrd/initrd-Linux-x86_64-v3.12.3.gz",
+      "default":false,
+      "bootcmdargs":"LINUX_COMMON ip=:::::eth0: boot=local",
+      "architecture":"x86_64",
+      "title":"x86_64 4.4.38 std #1 (stable)",
+      "dtb":"",
+      "organization":"444444-33333333333-11111111111-432-23523-545555555",
+      "id":"<<<< BASE_ID >>>>",
+      "public":false
+   },
+   "commercial_type":"VC1S",
+   "tags":[
+      "temporary",
+      "test"
+   ],
+   "arch":"x86_64",
+   "extra_networks":[
+
+   ],
+   "volumes":{
+      "0":{
+         "id":"<<<< VOLUME_1_ID >>>>",
+         "name":"volume 1"
+      },
+      "1":{
+         "id":"<<<< VOLUME_2_ID >>>>",
+         "name":"volume 2"
+      }
+   }
+}'
+
+
+
+****************************************************************************************************
+result >>
+****************************************************************************************************
+
+
+{
+   "server":{
+      "state_detail":"",
+      "image":{
+         "default_bootscript":{
+            "kernel":"http://192.168.1.1/kernel/x86_64-4.4.38-std-1/vmlinuz-4.4.38-std-1",
+            "initrd":"http://192.168.1.1/initrd/initrd-Linux-x86_64-v3.12.3.gz",
+            "default":false,
+            "bootcmdargs":"LINUX_COMMON ip=:::::eth0: boot=local",
+            "architecture":"x86_64",
+            "title":"x86_64 4.4.38 std #1 (stable)",
+            "dtb":"",
+            "organization":"444444-33333333333-11111111111-432-23523-545555555",
+            "id":"<<<< BASE_ID >>>>",
+            "public":false
+         },
+         "creation_date":"2017-01-05T10:10:59.907933+00:00",
+         "name":"Ubuntu Trusty (14.04)",
+         "modification_date":"2017-01-05T10:10:59.907933+00:00",
+         "organization":"asdlkgnvhfvosdhnklvndfvbv-sdgvds",
+         "extra_volumes":"[]",
+         "arch":"x86_64",
+         "id":"<<<< IMAGE_ID >>>>",
+         "root_volume":{
+            "size":50000000000,
+            "id":"sdgdsfgb-dfvadfsgvb-sdgvsdfgvb-dsfgvsdgv",
+            "volume_type":"l_ssd",
+            "name":"x86_64-ubuntu-trusty-2017-01-05_10:08"
+         },
+         "public":true
+      },
+      "creation_date":"2017-03-28T05:37:53.324806+00:00",
+      "public_ip":null,
+      "private_ip":null,
+      "id":"<<<< SERVER_ID >>>>",
+      "dynamic_ip_required":false,
+      "modification_date":"2017-03-28T07:05:37.701606+00:00",
+      "enable_ipv6":false,
+      "hostname":"new-test",
+      "state":"stopped",
+      "bootscript":{
+         "kernel":"http://192.168.1.1/kernel/x86_64-4.4.38-std-1/vmlinuz-4.4.38-std-1",
+         "initrd":"http://192.168.1.1/initrd/initrd-Linux-x86_64-v3.12.3.gz",
+         "default":false,
+         "bootcmdargs":"LINUX_COMMON ip=:::::eth0: boot=local",
+         "architecture":"x86_64",
+         "title":"x86_64 4.4.38 std #1 (stable)",
+         "dtb":"",
+         "organization":"444444-33333333333-11111111111-432-23523-545555555",
+         "id":"<<<< BASE_ID >>>>",
+         "public":false
+      },
+      "location":null,
+      "ipv6":null,
+      "commercial_type":"VC1S",
+      "tags":[
+         "temporary",
+         "test"
+      ],
+      "arch":"x86_64",
+      "extra_networks":[
+
+      ],
+      "name":"new_test",
+      "volumes":{
+         "0":{
+            "size":50000000000,
+            "name":"x86_64-ubuntu-trusty-2017-01-05_10:08",
+            "modification_date":"2017-03-28T05:37:53.324806+00:00",
+            "organization":"<<<< ORGANIZATION_ID >>>>",
+            "export_uri":null,
+            "creation_date":"2017-03-28T05:37:53.324806+00:00",
+            "id":"<<<< VOLUME_1_ID >>>>",
+            "volume_type":"l_ssd",
+            "server":{
+               "id":"<<<< SERVER_ID >>>>",
+               "name":"new_test"
+            }
+         },
+         "1":{
+            "size":5000000000,
+            "name":"new_test_volume",
+            "modification_date":"2017-03-28T07:05:37.598902+00:00",
+            "organization":"<<<< ORGANIZATION_ID >>>>",
+            "export_uri":null,
+            "creation_date":"2017-03-28T05:44:26.511246+00:00",
+            "id":"<<<< VOLUME_2_ID >>>>",
+            "volume_type":"l_ssd",
+            "server":{
+               "id":"<<<< SERVER_ID >>>>",
+               "name":"new_test"
+            }
+         }
+      },
+      "security_group":{
+         "id":"3979f992-4490-4810-a1c6-fae593cfdd80",
+         "name":"Default security group"
+      },
+      "organization":"<<<< ORGANIZATION_ID >>>>"
+   }
+}
+
+****************************************************************************************************
+
+detaching the volume, because The total volume size of VC1S instances must be equal or below 50GB, now we have 50 + 50 = 100GB
+
+
+
+****************************************************************************************************
+start the server >>
+****************************************************************************************************
+
+
+****************************************************************************************************
+request >>
+****************************************************************************************************
+
+curl -H "X-Auth-Token: <<<< TOKEN_ID >>>>" https://api.cloud.online.net/servers/<<<< SERVER_ID >>>>/action \
+ -d '{"action":"poweron"}' -H "Content-Type: application/json"
+
+
+****************************************************************************************************
+result >>
+****************************************************************************************************
+
+{
+   "task":{
+      "status":"pending",
+      "description":"server_batch_poweron",
+      "terminated_at":null,
+      "href_from":"/servers/<<<< SERVER_ID >>>>/action",
+      "progress":0,
+      "started_at":"2017-03-28T07:24:55.325308+00:00",
+      "id":"b35c1057-775b-45a3-bee2-eda6be42b752"
+   }
+}
+
+****************************************************************************************************
+
+check the server status and ip everything >>
+
+curl -H "X-Auth-Token: <<<< TOKEN_ID >>>>" https://api.cloud.online.net/servers/<<<< SERVER_ID >>>> -H "Content-Type: application/json" | grep {state,ip..etc... }
+
+****************************************************************************************************
+creating a snapshot
+****************************************************************************************************
+
+1) stop the server
+2) create snapshot
+
+****************************************************************************************************
+stop server >>
+****************************************************************************************************
+
+curl -H "X-Auth-Token: <<<< TOKEN_ID >>>>" https://api.cloud.online.net/servers/<<<< SERVER_ID >>>>/action \
+ -d '{"action":"poweroff"}' -H "Content-Type: application/json" -i
+
+
+****************************************************************************************************
+create snapshot >>
+****************************************************************************************************
+
+curl -X POST https://api.scaleway.com/snapshots \
+-H "X-Auth-Token: <<<< TOKEN_ID >>>>" \
+-H "Content-Type: application/json" \
+-d '{
+  "organization": "<<<< ORGANIZATION_ID >>>>",
+  "name": "ubuntu_16.04_base_image",
+  "volume_id": "<<<< VOLUME_1_ID >>>>"
+}' -i
+
+
+****************************************************************************************************
+result >>
+****************************************************************************************************
+
+
+{
+   "snapshots":[
+      {
+         "state":"snapshotting",
+         "base_volume":{
+            "id":"<<<< VOLUME_1_ID >>>>",
+            "name":"x86_64-docker-latest-2016-10-24_15:48"
+         },
+         "name":"ubuntu_16.04_base_image",
+         "modification_date":"2017-03-28T10:36:34.742030+00:00",
+         "organization":"<<<< ORGANIZATION_ID >>>>",
+         "size":50000000000,
+         "id":"<<<< SNAPSHOT_ID >>>>",
+         "volume_type":"l_ssd",
+         "creation_date":"2017-03-28T10:36:34.742030+00:00"
+      }
+   ]
+}
+
+
+****************************************************************************************************
+check the snapshots >>
+****************************************************************************************************
+
+
+curl -H "X-Auth-Token: <<<< TOKEN_ID >>>>" https://api.cloud.online.net/snapshots -H "Content-Type: application/json" -i
+
+
+****************************************************************************************************
+creating an image >>
+****************************************************************************************************
+
+required info >>
+
+organization ID >>
+            "id":"<<<< ORGANIZATION_ID >>>>"
+arch >>
+            "arch":"x86_64"
+name >>
+		    "name":"ubuntu_16.04_base_image"
+root_volume >> (snapshort id)
+			"root_volume":"<<<< SNAPSHOT_ID >>>>"
+
+****************************************************************************************************
+request >>
+****************************************************************************************************
+
+curl https://api.cloud.online.net/images \
+-H "X-Auth-Token: <<<< TOKEN_ID >>>>" \
+-H "Content-Type: application/json" \
+-d '{
+  "organization": "<<<< ORGANIZATION_ID >>>>",
+  "arch": "x86_64",
+  "name": "ubuntu_16.04_base_image",
+  "root_volume": "<<<< SNAPSHOT_ID >>>>"
+}' -i
+
+
+****************************************************************************************************
+result >>
+****************************************************************************************************
+
+
+{
+   "image":{
+      "default_bootscript":null,
+      "creation_date":"2017-03-29T03:57:07.188460+00:00",
+      "name":"ubuntu_16.04_base_image",
+      "modification_date":"2017-03-29T03:57:07.188460+00:00",
+      "organization":"<<<< ORGANIZATION_ID >>>>",
+      "extra_volumes":"[]",
+      "arch":"x86_64",
+      "id":"<<<< IMAGE_ID >>>>",
+      "root_volume":{
+         "size":50000000000,
+         "id":"<<<< SNAPSHOT_ID >>>>",
+         "volume_type":"l_ssd",
+         "name":"ubuntu_16.04_base_image"
+      },
+      "public":false
+   }
+}
+
+
+
+=======================================================================================================================================================
+link :: 
+https://www.scaleway.com/docs/generate-an-api-token/
+https://developer.scaleway.com/#header-request-and-response
+https://community.online.net/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684
+
+json validator >>
+https://jsonformatter.curiousconcept.com/
+=======================================================================================================================================================
+

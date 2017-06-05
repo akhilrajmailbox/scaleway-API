@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" media="screen" href="comments_data/embed-718b8e487f3301bb0c996590e6a4cb409c6e0485268ddf1c381693.css">
+      
+    <script src="comments_data/break_string-cc617154cd957804f2f6a1f3bc68258c9cdca3d4b9a322bf.js"></script>
+
+      <title>How to generate an API Token | Scaleway - Comments - Online Scaleway - Community</title>
+
+    <script>
+      (function() {
+
+        function postUp(msg) {
+          if (parent) {
+            parent.postMessage(msg, 'https://www.scaleway.com/docs/generate-an-api-token/');
+          }
+        }
+
+        function clickPostLink(e) {
+          var postId = e.target.getAttribute('data-link-to-post');
+          if (postId) {
+            var postElement = document.getElementById('post-' + postId);
+            if (postElement) {
+              var rect = postElement.getBoundingClientRect();
+              if (rect && rect.top) {
+                postUp({type: 'discourse-scroll', top: rect.top});
+                e.preventDefault();
+                return false;
+              }
+            }
+          }
+        }
+
+        window.onload = function() {
+          // Send a post message with our loaded height
+          postUp({type: 'discourse-resize', height: document['body'].offsetHeight});
+
+          var postLinks = document.querySelectorAll("a[data-link-to-post]"),
+              i;
+
+          for (i=0; i<postLinks.length; i++) {
+            postLinks[i].onclick = clickPostLink;
+          }
+
+          // Make sure all links in the iframe point to _blank
+          var cookedLinks = document.querySelectorAll('.cooked a');
+          for (i=0; i<cookedLinks.length; i++) {
+            cookedLinks[i].target = "_blank";
+          }
+
+          // Adjust all names
+          var names = document.querySelectorAll('.username a');
+          for (i=0; i<names.length; i++) {
+            var username = names[i].innerHTML;
+            if (username) {
+              names[i].innerHTML = new BreakString(username).break();
+            }
+          }
+
+        };
+
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="discourse">
+    <a class="button" target="_blank" href="https://community.online.net/t/how-to-generate-an-api-token-scaleway/1161">Start Discussion</a>
+  <span class="replies">0 replies</span>
+</header>
+
+
+  
+
+</body></html>

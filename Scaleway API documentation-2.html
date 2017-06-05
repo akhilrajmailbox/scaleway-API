@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html class="desktop-view not-mobile-device  anon js no-touch discourse-no-touch" style="" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>How to start a server with additional volume from the API | Scaleway - Comments - Online Scaleway - Community</title>
+    <meta name="description" content="How to start a server with additional volume from the API
+
+This page shows you some basics to interact with the Compute API. 
+
+Requirements 
+
+You have an account and are logged into cloud.scaleway.com
+
+You have configur&amp;hellip;">
+    <meta name="author" content="">
+<meta name="generator" content="Discourse 1.8.0.beta6 - https://github.com/discourse/discourse version 6bb9c5ceee4092355d5c7b97e98f46480b9a2278">
+<link rel="icon" type="image/png" href="Scaleway%20API%20documentation-2_files/favicon.ico">
+<link rel="apple-touch-icon" type="image/png" href="https://blog.online.net/assets/images/apple-touch-icon-152x152.png">
+<link rel="icon" sizes="144x144" href="https://blog.online.net/assets/images/apple-touch-icon-152x152.png">
+<meta name="theme-color" content="#ffffff">
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+<link rel="canonical" href="https://community.online.net/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684">
+<script type="text/javascript" async="" defer="defer" src="Scaleway%20API%20documentation-2_files/piwik.js"></script><script type="text/javascript" async="" defer="defer" src="Scaleway%20API%20documentation-2_files/piwik.js"></script><script type="application/ld+json">{"@context":"http://schema.org","@type":"WebSite","url":"https://community.online.net","potentialAction":{"@type":"SearchAction","target":"https://community.online.net/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script>
+<link rel="search" type="application/opensearchdescription+xml" href="https://community.online.net/opensearch.xml" title="Online Scaleway - Community Search">
+
+    
+
+<style>
+  @font-face {
+    font-family: 'FontAwesome';
+    src: url('/assets/fontawesome-webfont-ff82aeed6b9bb6701696c84d1b223d2e682eb78c89117a438ce6cfea8c498995.woff2?https://community.online.net&amp;2&v=4.5.0') format('woff2'),
+         url('/assets/fontawesome-webfont-c812ddc9e475d3e65d68a6b3b589ce598a2a5babb7afc55477d59215c4a38a40.woff?https://community.online.net&amp;2&v=4.5.0') format('woff');
+  }
+</style>
+
+      <link href="Scaleway%20API%20documentation-2_files/desktop_1418d455582628becff74d309a502f50c45b605a.css" media="all" rel="stylesheet">
+
+
+  <link class="custom-css" rel="stylesheet" href="Scaleway%20API%20documentation-2_files/7e202ef2-56d7-47d5-98d8-a9c8d15e57dd.css" type="text/css" media="all">
+
+    
+
+      <meta name="fragment" content="!">
+
+
+    <script>
+      window.EmberENV = window.EmberENV || {};
+      window.EmberENV['FORCE_JQUERY'] = true;
+    </script>
+
+    <script src="Scaleway%20API%20documentation-2_files/en-db5a7383606dc00adab14b919a1b65454baa99848c5eebc6daf28fdb90.js"></script>
+    <script src="Scaleway%20API%20documentation-2_files/ember_jquery-60dedd1dca1d8b8ce48b6d0087db3b96f3149b9b5af2d0c7.js"></script>
+    <script src="Scaleway%20API%20documentation-2_files/preload-store-9a5d6688476c54b0eb6e11cf444ab9dc19602f99f101142.js"></script>
+    <script src="Scaleway%20API%20documentation-2_files/vendor-52ed1f7ea87a692ca7ec8f3b75bb76997f730cae151edfe8f46784.js"></script>
+    <script src="Scaleway%20API%20documentation-2_files/pretty-text-bundle-04ac5b2eae6ead3ce5d5994ccd1e264320fb14970b.js"></script>
+    <script src="Scaleway%20API%20documentation-2_files/application-cb826fcaa0fa4a5c293c0f2cfe69ad9c9c249619d6b04adc3.js"></script>
+    <script src="Scaleway%20API%20documentation-2_files/plugin-599f54a397c6ad3654a566b60784a2320497bda51a3957414e34ab.js"></script>
+    <script src="Scaleway%20API%20documentation-2_files/plugin-third-party-8e18b248bccdfb848e1a156726c6566d96feb9c6d7.js"></script>
+
+
+      
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["setDomains", ["*.community.cloud.online.net"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//stats.cloud.online.net/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', '4']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+
+<!-- End Piwik Code -->
+
+
+    
+    <link rel="manifest" href="https://community.online.net/manifest.json">
+
+
+      <link rel="alternate" type="application/rss+xml" title="RSS feed of 'How to start a server with additional volume from the API | Scaleway'" href="https://community.online.net/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684.rss">
+  <meta property="og:site_name" content="Online Scaleway - Community">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.online.net/assets/images/apple-touch-icon-152x152.png">
+<meta property="og:image" content="https://blog.online.net/assets/images/apple-touch-icon-152x152.png">
+<meta property="og:url" content="https://community.online.net/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684">
+<meta name="twitter:url" content="https://community.online.net/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684">
+<meta property="og:title" content="How to start a server with additional volume from the API | Scaleway">
+<meta name="twitter:title" content="How to start a server with additional volume from the API | Scaleway">
+<meta property="og:description" content="How to start a server with additional volume from the API          This page shows you some basics to interact with the Compute API.           Requirements           You have an account and are logged into cloud.scaleway.com          You have configured your SSH Key     You have generated your API Token     You know your Organization ID              curl -H &quot;X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;&quot; https://api.cloud.online.net/images      Response       {   &quot;images&quot;: [     {       &quot;arch&quot;: &quot;arm...">
+<meta name="twitter:description" content="How to start a server with additional volume from the API          This page shows you some basics to interact with the Compute API.           Requirements           You have an account and are logged into cloud.scaleway.com          You have configured your SSH Key     You have generated your API Token     You know your Organization ID              curl -H &quot;X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;&quot; https://api.cloud.online.net/images      Response       {   &quot;images&quot;: [     {       &quot;arch&quot;: &quot;arm...">
+
+
+  <style id="image-sizing-hack">#reply-control .d-editor-preview img:not(.thumbnail), .cooked img:not(.thumbnail) {max-width:690px;max-height:500px;}</style></head>
+
+  <body class="archetype-regular docked category-comments">
+    
+
+    <div class="debug-eyeline"></div>
+
+    
+
+      <!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//stats.cloud.online.net/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 4]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+
+<!-- End Piwik Code -->
+
+
+
+    <section id="main" class="ember-application">
+    <div id="ember726" class="ember-view"><span id="ember774" class="ember-view"><!----></span>
+<div id="ember784" class="ember-view"><header class="d-header clearfix"><div class="wrap"><div class="contents clearfix"><div class="title"><a href="https://community.online.net/" data-auto-route="true"><img src="Scaleway%20API%20documentation-2_files/favicon.ico" alt="Online Scaleway - Community" id="site-logo" class="logo-small" width="33" height="33"></a></div><div class="panel clearfix"><span><button class="widget-button btn-primary btn-small login-button" aria-label="Log In" title="Log In"><i class="fa fa-user" aria-hidden="true"></i>Log In</button></span><ul role="navigation" class="icons clearfix"><li class="header-dropdown-toggle"><a href="https://community.online.net/search" data-auto-route="true" title="search topics, posts, users, or categories" aria-label="search topics, posts, users, or categories" id="search-button" class="icon"><i class="fa fa-search" aria-hidden="true"></i></a></li><li class="header-dropdown-toggle"><a data-auto-route="true" title="go to another topic list or category" aria-label="go to another topic list or category" id="toggle-hamburger-menu" class="icon"><i class="fa fa-bars" aria-hidden="true"></i></a></li></ul></div><div class="extra-info-wrapper"><div class="extra-info two-rows"><div class="title-wrapper"><h1><div class="topic-statuses"></div><a class="widget-link topic-link" href="https://community.online.net/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684" title=""><span>How to start a server with additional volume from the API | Scaleway</span></a></h1><a class="badge-wrapper bullet" href="https://community.online.net/c/comments"><span class="badge-category-bg" style="background-color: #B3B5B4;"></span><span style="color: #FFFFFF;" data-drop-close="true" class="badge-category clear-badge">Comments</span></a></div></div></div></div></div></header></div>
+<span id="ember785" class="ember-view"><!----></span>
+
+<div id="main-outlet" class="wrap">
+  <div class="container">
+      <div id="ember794" class="ember-view">
+<header class="blog-header" style="background-image: url('http://blog.online.net/content/images/2016/06/img_blog_homepage.png')">
+</header>
+</div>
+    <div id="ember802" class="ember-view"></div>
+    <div id="ember807" class="hidden create-topics-notice ember-view"><!----></div>
+  </div>
+  <div id="ember820" class="regular category-comments ember-view">    <div id="ember837" class="ember-view"></div>
+    <div class="container">
+      <div id="ember842" class="ember-view"><!----></div>
+    </div>
+
+  <span id="ember843" class="ember-view"><!----></span>
+
+      <div id="topic-title">
+        <div class="container">
+
+          <div class="title-wrapper">
+              <h1>
+                  <a>
+                    <span class="private-message-glyph"><i class="fa fa-envelope"></i></span>
+                  </a>
+
+                  <div id="ember871" class="topic-statuses ember-view"></div>
+                  <a href="https://community.online.net/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684" class="fancy-title" data-ember-action="" data-ember-action-872="872">
+                    How to start a server with additional volume from the API | Scaleway
+                  </a>
+
+<!---->              </h1>
+
+                <div id="ember880" class="topic-category ember-view"><!----><a class="badge-wrapper bullet" href="https://community.online.net/c/comments"><span class="badge-category-bg" style="background-color: #B3B5B4;"></span><span style="color: #FFFFFF;" data-drop-close="true" class="badge-category clear-badge">Comments</span></a>
+<div class="topic-header-extra">
+<!---->    
+</div>
+<span id="ember887" class="ember-view"><!----></span>
+</div>
+          </div>
+          <span id="ember888" class="ember-view"><!----></span>
+        </div>
+      </div>
+
+    <div class="container posts">
+      <div class="selected-posts hidden">
+        <p><span id="ember902" class="ember-view">You have selected <b>0</b> posts.</span></p>
+
+  <p><a href="" data-ember-action="" data-ember-action-903="903">select all</a></p>
+
+<!---->
+<!---->
+<!---->
+<!---->
+<!---->
+<!---->
+<p class="cancel"><a href="" data-ember-action="" data-ember-action-908="908">cancel selecting</a></p>
+
+      </div>
+
+<div id="ember913" class="ember-view"><!---->
+          <div id="ember1111" class="ember-view"><div class="timeline-container" style="top: 85px"><div class="topic-timeline"></div></div></div>
+
+</div>
+      <div class="row">
+        <section id="topic" data-topic-id="2684" class="topic-area">
+
+          <div class="posts-wrapper">
+            <div id="ember926" class="ember-view">  
+</div>
+
+            <span id="ember927" class="ember-view"><!----></span>
+
+              <div id="ember936" class="ember-view"><div class="post-stream"><div class="topic-post clearfix topic-owner regular"><article id="post_1" data-post-id="5949" data-user-id="768" class="boxed onscreen-post" style=""><a href="" class="tabLoc"></a><div class="row"><div class="topic-avatar"><a class="trigger-user-card main-avatar" href="https://community.online.net/users/Scaleway" data-user-card="Scaleway"><img alt="" src="Scaleway%20API%20documentation-2_files/484_1.png" title="Scaleway" class="avatar" width="45" height="45"></a><div class="poster-avatar-extra"></div></div><div class="topic-body clearfix"><div class="topic-meta-data"><div class="names trigger-user-card"><span class="first username"><a href="https://community.online.net/users/Scaleway" data-user-card="Scaleway">Scaleway</a></span></div><div class="post-info"><a href="https://community.online.net/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684" data-share-url="/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684" data-post-number="1" class="post-date"><span title="Jul 1, 2016 11:37 pm" data-time="1467396446563" data-format="tiny" class="relative-date">Jul '16</span></a></div><div class="read-state read" title="Post is unread"><i class="fa fa-circle" aria-hidden="true"></i></div></div><div class="regular contents"><div class="cooked"><div>
+<div>
+
+<br>
+
+<h1>How to start a server with additional volume from the API<a href="https://www.scaleway.com/#-How-to-start-a-server-with-additional-volume-from-the-API" rel="nofollow"></a>
+
+<br>
+
+</h1>
+
+<br>
+
+<p>This page shows you some basics to interact with the Compute API.</p>
+
+<br>
+
+<blockquote>
+
+<br>
+
+<p><strong>Requirements</strong></p>
+
+<br>
+
+<ul>
+
+<br>
+
+<li>You have an account and are logged into <a href="https://www.scaleway.com/cloud.scaleway.com" rel="nofollow">cloud.scaleway.com</a>
+
+<br>
+
+</li>
+
+<br>
+
+<li>You have configured your SSH Key</li>
+
+<br>
+
+<li>You have generated your API Token</li>
+
+<br>
+
+<li>You know your Organization ID</li>
+
+<br>
+
+</ul>
+
+<br>
+
+</blockquote>
+
+<p></p>
+<pre><code class="hljs cs">curl -H <span class="hljs-string">"X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;"</span> https:<span class="hljs-comment">//api.cloud.online.net/images</span></code></pre>
+
+<p></p>
+</div>
+<br><p>Response</p>
+<br><div>
+
+<p></p>
+<pre><code class="hljs coffeescript">{
+  <span class="hljs-string">"images"</span>: [
+    {
+      <span class="hljs-string">"arch"</span>: <span class="hljs-string">"arm"</span>,
+      <span class="hljs-string">"creation_date"</span>: <span class="hljs-string">"2014-06-04T12:38:32.534063+00:00"</span>,
+      <span class="hljs-string">"extra_volumes"</span>: <span class="hljs-string">"[]"</span>,
+      <span class="hljs-string">"from_image"</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-string">"from_server"</span>: <span class="hljs-literal">null</span>,
+<span class="hljs-function">-&gt;</span>    <span class="hljs-string">"id"</span>: <span class="hljs-string">"fe8dfea7-bb8c-490c-a554-1a44a3c4af8c"</span>,
+      <span class="hljs-string">"marketplace_key"</span>: <span class="hljs-literal">null</span>,
+      <span class="hljs-string">"modification_date"</span>: <span class="hljs-string">"2014-06-04T12:38:32.534063+00:00"</span>,
+<span class="hljs-function">-&gt;</span>    <span class="hljs-string">"name"</span>: <span class="hljs-string">"Ubuntu Trusty (14.04) on SSD 2014.06.04"</span>,
+      <span class="hljs-string">"organization"</span>: <span class="hljs-string">"cc57d96c-03ac-44a5-bc91-8d1de2bbf8a8"</span>,
+      <span class="hljs-string">"public"</span>: <span class="hljs-literal">true</span>,
+      <span class="hljs-string">"root_volume"</span>: {
+        <span class="hljs-string">"id"</span>: <span class="hljs-string">"c583bf78-ebd5-4ebc-863f-71905d2c39fd"</span>,
+        <span class="hljs-string">"name"</span>: <span class="hljs-string">"Ubuntu Trusty RootFS snapshot"</span>
+      }
+    }
+  ]
+}</code></pre>
+
+<p></p>
+</div>
+<br><h2>Step 2 - Create a new server<a href="https://www.scaleway.com/#-Step-2--Create-a-new-server" rel="nofollow"></a><br>
+</h2>
+<br><p>To create a server, you have to fill out the following input:</p>
+<br><ul>
+<br><li>A server name</li>
+<br><li>An Organization ID</li>
+<br><li>An Image ID</li>
+<br><li>Tags (Optional)</li>
+<br>
+</ul>
+<br><p>Request</p>
+<br><div>
+
+<p></p>
+<pre><code class="hljs nginx"><span class="hljs-attribute">curl</span> https://api.cloud.online.net/servers \
+-H <span class="hljs-string">"X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;"</span> \
+-H <span class="hljs-string">"Content-Type: application/json"</span> \
+-d <span class="hljs-string">'{ \
+"name": "&lt;YOUR_SERVER_NAME&gt;",
+"image": "fe8dfea7-bb8c-490c-a554-1a44a3c4af8c",
+"tags": ["temporary", "test"],
+"organization": "&lt;YOUR_ORGANIZATION_ID&gt;"
+}'</span></code></pre>
+
+<p></p>
+</div>
+<br><p>Response</p>
+<br><div>
+
+<p></p>
+<pre><code class="hljs json">{
+  <span class="hljs-attr">"server"</span>: {
+    <span class="hljs-attr">"dynamic_public_ip"</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"c88d1aee-b65d-4ab9-bafd-3df293782693"</span>,
+    <span class="hljs-attr">"image"</span>: {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"fe8dfea7-bb8c-490c-a554-1a44a3c4af8c"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Ubuntu Trusty (14.04) on SSD 2014.06.04"</span>
+    },
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"&lt;YOUR_SERVER_NAME&gt;"</span>,
+    <span class="hljs-attr">"organization"</span>: <span class="hljs-string">"&lt;YOUR_ORGANIZATION_ID&gt;"</span>,
+    <span class="hljs-attr">"private_ip"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">"public_ip"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">"state"</span>: <span class="hljs-string">"stopped"</span>,
+    <span class="hljs-attr">"state_detail"</span>: <span class="hljs-string">""</span>,
+    <span class="hljs-attr">"tags"</span>: [
+      <span class="hljs-string">"temporary"</span>,
+      <span class="hljs-string">"test"</span>
+    ],
+    <span class="hljs-attr">"volumes"</span>: {
+      <span class="hljs-attr">"0"</span>: {
+        <span class="hljs-attr">"export_uri"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1a96f139-95f8-4680-aeeb-0a58229d18d5"</span>,
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Ubuntu Trusty RootFS snapshot"</span>,
+        <span class="hljs-attr">"organization"</span>: <span class="hljs-string">"&lt;YOUR_ORGANIZATION_ID&gt;"</span>,
+        <span class="hljs-attr">"server"</span>: {
+          <span class="hljs-attr">"id"</span>: <span class="hljs-string">"c88d1aee-b65d-4ab9-bafd-3df293782693"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"&lt;YOUR_SERVER_NAME&gt;"</span>
+        },
+        <span class="hljs-attr">"size"</span>: <span class="hljs-number">20000000000</span>,
+        <span class="hljs-attr">"volume_type"</span>: <span class="hljs-string">"l_ssd"</span>
+      }
+    }
+  }
+}</code></pre>
+
+<p></p>
+</div>
+<br><p>The response above returns an HTTP 201 code with the server details.</p>
+<br><h2>Step 3 - Create a new volume<a href="https://www.scaleway.com/#-Step-3--Create-a-new-volume" rel="nofollow"></a><br>
+</h2>
+<br><p>To create a volume, you have to fill out the following input:</p>
+<br><ul>
+<br><li>A volume name</li>
+<br><li>An Organization ID</li>
+<br><li>A size in GB</li>
+<br><li>The volume type - LSSD (Local solid state drive) or LHDD (Local spinning disk)</li>
+<br>
+</ul>
+<br><p>You can create and attach additional volumes to an existing server. The server must be stopped.</p>
+<br><p>Let’s create a new volume of type SSD with a size of 10GB.</p>
+<br><p>Request</p>
+<br><div>
+
+<p></p>
+<pre><code class="hljs nginx"><span class="hljs-attribute">curl</span> https://api.cloud.online.net/volumes \
+-H <span class="hljs-string">"X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;"</span> \
+-H <span class="hljs-string">"Content-Type: application/json"</span> \
+-d <span class="hljs-string">'{
+"name": "&lt;YOUR_VOLUME_NAME&gt;",
+"organization": "&lt;YOUR_ORGANIZATION_ID&gt;",
+"size": 10000000000,
+"volume_type": "l_ssd"
+}'</span></code></pre>
+
+<p></p>
+</div>
+<br><p>Response</p>
+<br><div>
+
+<p></p>
+<pre><code class="hljs json">{
+  <span class="hljs-attr">"volume"</span>: {
+    <span class="hljs-attr">"export_uri"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"65e7d766-103b-4fb1-819a-fb95e3a15348"</span>,
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"&lt;YOUR_VOLUME_NAME&gt;"</span>,
+    <span class="hljs-attr">"organization"</span>: <span class="hljs-string">"&lt;YOUR_ORGANIZATION_ID&gt;"</span>,
+    <span class="hljs-attr">"server"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">"size"</span>: <span class="hljs-number">10000000000</span>,
+    <span class="hljs-attr">"volume_type"</span>: <span class="hljs-string">"l_ssd"</span>
+  }
+}</code></pre>
+
+<p></p>
+</div>
+<br><p>The response above returns an HTTP 201 code with the volume details.</p>
+<br><h2>Step 4 - Attach the volume to the server<a href="https://www.scaleway.com/#-Step-4--Attach-the-volume-to-the-server" rel="nofollow"></a><br>
+</h2>
+<br><p>To attach an additional volume to an existing server, you have to perform a PUT method requests on the server.</p>
+<br><p>Request</p>
+<br><div>
+
+<p></p>
+<pre><code class="hljs ruby">curl <span class="hljs-symbol">https:</span>/<span class="hljs-regexp">/api.cloud.online.net/servers</span><span class="hljs-regexp">/&lt;YOUR_SERVER_ID&gt; \
+-H "X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;" \
+-H "Content-Type: application/json</span><span class="hljs-string">" \
+-X PUT
+-d '{
+"</span>dynamic_public_ip<span class="hljs-string">": false,
+"</span>id<span class="hljs-string">": "</span>c88d1aee-b65d-<span class="hljs-number">4</span>ab9-bafd-<span class="hljs-number">3</span>df293782693<span class="hljs-string">",
+"</span>image<span class="hljs-string">": {
+"</span>id<span class="hljs-string">": "</span>fe8dfea7-bb8c-<span class="hljs-number">490</span>c-a554-<span class="hljs-number">1</span>a44a3c4af8c<span class="hljs-string">",
+"</span>name<span class="hljs-string">": "</span>Ubuntu Trusty (<span class="hljs-number">14.04</span>) on SSD <span class="hljs-number">2014.06</span>.<span class="hljs-number">04</span><span class="hljs-string">"
+},
+"</span>name<span class="hljs-string">": "</span>&lt;YOUR_SERVER_NAME&gt;<span class="hljs-string">",
+"</span>organization<span class="hljs-string">": "</span>&lt;YOUR_ORGANIZATION_ID&gt;<span class="hljs-string">",
+"</span>private_ip<span class="hljs-string">": null,
+"</span>public_ip<span class="hljs-string">": null,
+"</span>state<span class="hljs-string">": "</span>stopped<span class="hljs-string">",
+"</span>state_detail<span class="hljs-string">": "</span><span class="hljs-string">",
+"</span>tags<span class="hljs-string">": [
+"</span>temporary<span class="hljs-string">",
+"</span>test<span class="hljs-string">"
+],
+"</span>volumes<span class="hljs-string">": {
+---&gt; "</span><span class="hljs-number">0</span><span class="hljs-string">": {"</span>id<span class="hljs-string">": "</span><span class="hljs-number">1</span>a96f139-<span class="hljs-number">95</span>f8-<span class="hljs-number">4680</span>-aeeb-0a58229d18d5<span class="hljs-string">", "</span>name<span class="hljs-string">": "</span>volume <span class="hljs-number">1</span><span class="hljs-string">"},
+---&gt; "</span><span class="hljs-number">1</span><span class="hljs-string">": {"</span>id<span class="hljs-string">": "</span><span class="hljs-number">65</span>e7d766-<span class="hljs-number">103</span>b-<span class="hljs-number">4</span>fb1-<span class="hljs-number">819</span>a-fb95e3a15348<span class="hljs-string">", "</span>name<span class="hljs-string">": "</span>volume <span class="hljs-number">2</span><span class="hljs-string">"}
+}
+}'</span></code></pre>
+
+<p></p>
+</div>
+<br><p>Response</p>
+<br><div>
+
+<p></p>
+<pre><code class="hljs json">{
+  <span class="hljs-attr">"server"</span>: {
+    <span class="hljs-attr">"dynamic_public_ip"</span>: <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"c88d1aee-b65d-4ab9-bafd-3df293782693"</span>,
+    <span class="hljs-attr">"image"</span>: {
+      <span class="hljs-attr">"id"</span>: <span class="hljs-string">"fe8dfea7-bb8c-490c-a554-1a44a3c4af8c"</span>,
+      <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Ubuntu Trusty (14.04) on SSD 2014.06.04"</span>
+    },
+    <span class="hljs-attr">"name"</span>: <span class="hljs-string">"&lt;YOUR_SERVER_NAME&gt;"</span>,
+    <span class="hljs-attr">"organization"</span>: <span class="hljs-string">"&lt;YOUR_ORGANIZATION_ID&gt;"</span>,
+    <span class="hljs-attr">"private_ip"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">"public_ip"</span>: <span class="hljs-literal">null</span>,
+    <span class="hljs-attr">"state"</span>: <span class="hljs-string">"stopped"</span>,
+    <span class="hljs-attr">"state_detail"</span>: <span class="hljs-string">""</span>,
+    <span class="hljs-attr">"tags"</span>: [
+      <span class="hljs-string">"temporary"</span>,
+      <span class="hljs-string">"test"</span>
+    ],
+    <span class="hljs-attr">"volumes"</span>: {
+      <span class="hljs-attr">"0"</span>: {
+        <span class="hljs-attr">"export_uri"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1a96f139-95f8-4680-aeeb-0a58229d18d5"</span>,
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"Ubuntu Trusty RootFS snapshot"</span>,
+        <span class="hljs-attr">"organization"</span>: <span class="hljs-string">"&lt;YOUR_ORGANIZATION_ID&gt;"</span>,
+        <span class="hljs-attr">"server"</span>: {
+          <span class="hljs-attr">"id"</span>: <span class="hljs-string">"c88d1aee-b65d-4ab9-bafd-3df293782693"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"&lt;YOUR_SERVER_NAME&gt;"</span>
+        },
+        <span class="hljs-attr">"size"</span>: <span class="hljs-number">20000000000</span>,
+        <span class="hljs-attr">"volume_type"</span>: <span class="hljs-string">"l_ssd"</span>
+      },
+      <span class="hljs-attr">"1"</span>: {
+        <span class="hljs-attr">"export_uri"</span>: <span class="hljs-literal">null</span>,
+        <span class="hljs-attr">"id"</span>: <span class="hljs-string">"65e7d766-103b-4fb1-819a-fb95e3a15348"</span>,
+        <span class="hljs-attr">"name"</span>: <span class="hljs-string">"&lt;YOUR_VOLUME_NAME&gt;"</span>,
+        <span class="hljs-attr">"organization"</span>: <span class="hljs-string">"&lt;YOUR_ORGANIZATION_ID&gt;"</span>,
+        <span class="hljs-attr">"server"</span>: {
+          <span class="hljs-attr">"id"</span>: <span class="hljs-string">"c88d1aee-b65d-4ab9-bafd-3df293782693"</span>,
+          <span class="hljs-attr">"name"</span>: <span class="hljs-string">"&lt;YOUR_SERVER_NAME&gt;"</span>
+        },
+        <span class="hljs-attr">"size"</span>: <span class="hljs-number">10000000000</span>,
+        <span class="hljs-attr">"volume_type"</span>: <span class="hljs-string">"l_ssd"</span>
+      }
+    }
+  }
+}</code></pre>
+
+<p></p>
+</div>
+<br><h2>Step 5 - Start a server<a href="https://www.scaleway.com/#-Step-5--Start-a-server" rel="nofollow"></a><br>
+</h2>
+<br><p>To start your server, execute the following request where <code>&lt;YOUR_SERVER_ID&gt;</code> is your server id.</p>
+<br><p>Request</p>
+<br><div>
+
+<p></p>
+<pre><code class="hljs nginx"><span class="hljs-attribute">curl</span> -H <span class="hljs-string">"X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;"</span> https://api.cloud.online.net/servers/&lt;YOUR_SERVER_ID&gt;/action \
+ -d <span class="hljs-string">'{"action":"poweron"}'</span> -H <span class="hljs-string">"Content-Type: application/json"</span></code></pre>
+
+<p></p>
+</div>
+<br><p>Response</p>
+<br><div>
+
+<p></p>
+<pre><code class="hljs json">{
+  <span class="hljs-attr">"task"</span>: {
+    <span class="hljs-attr">"description"</span>: <span class="hljs-string">"server_batch_poweron"</span>,
+    <span class="hljs-attr">"href_from"</span>: <span class="hljs-string">"/servers/c88d1aee-b65d-4ab9-bafd-3df293782693/action"</span>,
+    <span class="hljs-attr">"id"</span>: <span class="hljs-string">"1f8e2202-83b3-463b-948d-9d1e5aa7dfe1"</span>,
+    <span class="hljs-attr">"progress"</span>: <span class="hljs-string">"0"</span>,
+    <span class="hljs-attr">"started_at"</span>: <span class="hljs-string">"2014-07-22T12:17:39.067932+00:00"</span>,
+    <span class="hljs-attr">"status"</span>: <span class="hljs-string">"pending"</span>,
+    <span class="hljs-attr">"terminated_at"</span>: <span class="hljs-literal">null</span>
+  }
+}</code></pre>
+
+<p></p>
+</div>
+<br><p>To go even further you can access the <a href="https://www.scaleway.com/developer.scaleway.com/" rel="nofollow">API Documentation<span class="badge badge-notification clicks" title="4 clicks">4</span></a>.</p>
+<br>
+</div>
+
+<hr>
+
+<br>
+
+<small>This is a companion discussion topic for the original entry at <a href="https://www.scaleway.com/docs/interact-with-the-compute-api/?embed_url=https://www.scaleway.com/docs/interact-with-the-compute-api/" rel="nofollow">https://www.scaleway.com/docs/interact-with-the-compute-api/?embed_url=https://www.scaleway.com/docs/interact-with-the-compute-api/</a></small></div><button class="btn expand-post">Show Full Post...</button><section class="post-menu-area clearfix"><nav class="post-controls clearfix"><div class="actions"><button class="widget-button toggle-like like no-text"><i class="fa fa-heart" aria-hidden="true"></i></button><button class="widget-button share no-text" aria-label="share a link to this post" title="share a link to this post" data-share-url="/t/how-to-start-a-server-with-additional-volume-from-the-api-scaleway/2684" data-post-number="1"><i class="fa fa-link" aria-hidden="true"></i></button></div></nav></section></div><section class="post-actions"></section><div class="post-links-container"></div></div></div></article></div></div></div>
+
+            <div id="ember937" class="ember-view">  
+</div>
+          </div>
+          <div id="topic-bottom"></div>
+
+<div id="ember938" class="ember-view">  
+              <div id="topic-closing-info" class="ember-view"></div>
+                <div id="ember958" class="ember-view"><div class="signup-cta alert alert-info">
+    <p>Hey there! <img src="Scaleway%20API%20documentation-2_files/heart_eyes.png" title="heart_eyes" alt="heart_eyes" class="emoji"> Looks like you're enjoying the discussion, but you're not signed up for an account.</p>
+    <p>When you create an account, we remember exactly what you've read,
+ so you always come right back where you left off. You also get 
+notifications, here and via email, whenever new posts are made. And you 
+can like posts to share the love. <img src="Scaleway%20API%20documentation-2_files/heartbeat.png" title="heartbeat" alt="heartbeat" class="emoji"></p>
+
+    <div class="buttons">
+      <button id="ember973" class="btn-primary btn ember-view">  <i class="fa fa-check"></i>
+
+Sign Up
+
+</button>
+      <button id="ember974" class="no-icon btn ember-view"><!---->
+Remind me tomorrow
+
+</button>
+      <a data-ember-action="" data-ember-action-975="975">no thanks</a>
+    </div>
+  <div class="clearfix"></div>
+</div>
+</div>
+
+<!---->
+<!---->
+              <span id="ember976" class="ember-view"><!----></span>
+
+                <div id="suggested-topics">
+                  <h3>Suggested Topics</h3>
+                  <div class="topics">
+                      <div id="ember985" class="ember-view"><div id="ember986" class="ember-view">      <table id="ember995" class="topic-list ember-view">  <thead>
+    <tr><th data-sort-order="default" class="default">Topic</th>
+
+  <th data-sort-order="category" class="category">Category</th>
+
+<th data-sort-order="posts" class="posts num">Replies</th>
+
+<th data-sort-order="views" class="views num">Views</th>
+
+<th data-sort-order="activity" class="activity num">Activity</th>
+
+</tr>
+  </thead>
+<tbody>
+    <tr data-topic-id="2683" id="ember1018" class="topic-list-item category-comments ember-view">
+<td class="main-link clearfix" colspan="1">
+  <span class="link-top-line">
+    
+    
+    <a href="https://community.online.net/t/how-to-create-an-image-with-docker-scaleway/2683" class="title">How to create an image with Docker | Scaleway</a>
+    
+      <span class="topic-post-badges">
+</span>
+
+  </span>
+
+  
+  
+</td>
+
+    <td class="category"><a class="badge-wrapper bullet" href="https://community.online.net/c/comments"><span class="badge-category-bg" style="background-color: #B3B5B4;"></span><span style="color: #FFFFFF;" data-drop-close="true" class="badge-category clear-badge">Comments</span></a></td>
+
+
+
+<td class="num posts-map posts heatmap-" title="This topic has 0 replies">
+  <a href="" class="posts-map badge-posts heatmap-"><span class="number">0</span></a>
+</td>
+
+
+
+
+
+<td class="num views "><span class="number" title="this topic has been viewed 142 times">142</span></td>
+
+<td class="num age activity" title="First post: Jul 1, 2016 10:44 pm
+Last post: Jul 1, 2016 10:44 pm"><a href="https://community.online.net/t/how-to-create-an-image-with-docker-scaleway/2683/1"><span class="relative-date with-year" data-time="1467393277725" data-format="tiny">Jul '16</span></a></td>
+
+</tr>
+    
+    <tr data-topic-id="2657" id="ember1024" class="topic-list-item category-comments ember-view">
+<td class="main-link clearfix" colspan="1">
+  <span class="link-top-line">
+    
+    
+    <a href="https://community.online.net/t/how-to-deploy-wordpress-with-a-click-scaleway/2657" class="title">How to deploy WordPress with a click | Scaleway</a>
+    
+      <span class="topic-post-badges">
+</span>
+
+  </span>
+
+  
+  
+</td>
+
+    <td class="category"><a class="badge-wrapper bullet" href="https://community.online.net/c/comments"><span class="badge-category-bg" style="background-color: #B3B5B4;"></span><span style="color: #FFFFFF;" data-drop-close="true" class="badge-category clear-badge">Comments</span></a></td>
+
+
+
+<td class="num posts-map posts heatmap-" title="This topic has 2 replies">
+  <a href="" class="posts-map badge-posts heatmap-"><span class="number">2</span></a>
+</td>
+
+
+
+
+
+<td class="num views "><span class="number" title="this topic has been viewed 331 times">331</span></td>
+
+<td class="num age coldmap-low activity" title="First post: Jul 1, 2016 4:22 pm
+Last post: Aug 8, 2016 2:45 am"><a href="https://community.online.net/t/how-to-deploy-wordpress-with-a-click-scaleway/2657/3"><span class="relative-date with-year" data-time="1470604508209" data-format="tiny">Aug '16</span></a></td>
+
+</tr>
+    
+    <tr data-topic-id="2678" id="ember1026" class="topic-list-item category-comments ember-view">
+<td class="main-link clearfix" colspan="1">
+  <span class="link-top-line">
+    
+    
+    <a href="https://community.online.net/t/how-to-cache-your-scaleway-scalable-infinite-storage-scaleway-sis-objects-with-varnish-scaleway/2678" class="title">How to cache your Scaleway Scalable Infinite Storage (Scaleway SIS) objects with Varnish | Scaleway</a>
+    
+      <span class="topic-post-badges">
+</span>
+
+  </span>
+
+  
+  
+</td>
+
+    <td class="category"><a class="badge-wrapper bullet" href="https://community.online.net/c/comments"><span class="badge-category-bg" style="background-color: #B3B5B4;"></span><span style="color: #FFFFFF;" data-drop-close="true" class="badge-category clear-badge">Comments</span></a></td>
+
+
+
+<td class="num posts-map posts heatmap-" title="This topic has 0 replies">
+  <a href="" class="posts-map badge-posts heatmap-"><span class="number">0</span></a>
+</td>
+
+
+
+
+
+<td class="num views "><span class="number" title="this topic has been viewed 163 times">163</span></td>
+
+<td class="num age activity" title="First post: Jul 1, 2016 10:05 pm
+Last post: Jul 1, 2016 10:05 pm"><a href="https://community.online.net/t/how-to-cache-your-scaleway-scalable-infinite-storage-scaleway-sis-objects-with-varnish-scaleway/2678/1"><span class="relative-date with-year" data-time="1467390927921" data-format="tiny">Jul '16</span></a></td>
+
+</tr>
+    
+    <tr data-topic-id="2666" id="ember1028" class="topic-list-item category-comments ember-view">
+<td class="main-link clearfix" colspan="1">
+  <span class="link-top-line">
+    
+    
+    <a href="https://community.online.net/t/how-to-use-object-storage-with-s3cmd-scaleway/2666" class="title">How to use Object Storage with s3cmd | Scaleway</a>
+    
+      <span class="topic-post-badges">
+</span>
+
+  </span>
+
+  
+  
+</td>
+
+    <td class="category"><a class="badge-wrapper bullet" href="https://community.online.net/c/comments"><span class="badge-category-bg" style="background-color: #B3B5B4;"></span><span style="color: #FFFFFF;" data-drop-close="true" class="badge-category clear-badge">Comments</span></a></td>
+
+
+
+<td class="num posts-map posts heatmap-" title="This topic has 0 replies">
+  <a href="" class="posts-map badge-posts heatmap-"><span class="number">0</span></a>
+</td>
+
+
+
+
+
+<td class="num views "><span class="number" title="this topic has been viewed 74 times">74</span></td>
+
+<td class="num age activity" title="First post: Jul 1, 2016 5:06 pm
+Last post: Jul 1, 2016 5:06 pm"><a href="https://community.online.net/t/how-to-use-object-storage-with-s3cmd-scaleway/2666/1"><span class="relative-date with-year" data-time="1467372975413" data-format="tiny">Jul '16</span></a></td>
+
+</tr>
+    
+    <tr data-topic-id="2655" id="ember1030" class="topic-list-item category-comments ember-view">
+<td class="main-link clearfix" colspan="1">
+  <span class="link-top-line">
+    
+    
+    <a href="https://community.online.net/t/how-to-collect-and-visualize-your-logs-with-the-elk-stack-elasticsearch-logstash-kibana-scaleway/2655" class="title">How to collect and visualize your logs with the ELK stack (Elasticsearch Logstash Kibana) | Scaleway</a>
+    
+      <span class="topic-post-badges">
+</span>
+
+  </span>
+
+  
+  
+</td>
+
+    <td class="category"><a class="badge-wrapper bullet" href="https://community.online.net/c/comments"><span class="badge-category-bg" style="background-color: #B3B5B4;"></span><span style="color: #FFFFFF;" data-drop-close="true" class="badge-category clear-badge">Comments</span></a></td>
+
+
+
+<td class="num posts-map posts heatmap-" title="This topic has 0 replies">
+  <a href="" class="posts-map badge-posts heatmap-"><span class="number">0</span></a>
+</td>
+
+
+
+
+
+<td class="num views "><span class="number" title="this topic has been viewed 45 times">45</span></td>
+
+<td class="num age activity" title="First post: Jul 1, 2016 4:19 pm
+Last post: Jul 1, 2016 4:19 pm"><a href="https://community.online.net/t/how-to-collect-and-visualize-your-logs-with-the-elk-stack-elasticsearch-logstash-kibana-scaleway/2655/1"><span class="relative-date with-year" data-time="1467370185279" data-format="tiny">Jul '16</span></a></td>
+
+</tr>
+    
+</tbody>
+</table>
+
+</div></div>
+                  </div>
+                  <h3>Want to read more? Browse other topics in <a class="badge-wrapper bullet" href="https://community.online.net/c/comments"><span class="badge-category-bg" style="background-color: #B3B5B4;"></span><span style="color: #FFFFFF;" data-drop-close="true" class="badge-category clear-badge">Comments</span></a> or <a href="https://community.online.net/latest">view latest topics</a>.</h3>
+                </div>
+
+
+</div>
+        </section>
+      </div>
+
+    </div>
+
+  <div id="share-link" class="ember-view"><h3>share a link to this topic</h3>
+
+<!---->
+<div>
+  <input type="text">
+  <div class="share-for-touch"><div class="overflow-ellipsis"><a></a></div></div>
+</div>
+
+  <div id="ember1044" class="social-link ember-view"><a href="" title="share this link on Twitter" aria-label="share this link on Twitter" data-ember-action="" data-ember-action-1045="1045">
+    <i class="fa fa-twitter-square"></i>
+</a>
+</div>
+  <div id="ember1047" class="social-link ember-view"><a href="" title="share this link on Facebook" aria-label="share this link on Facebook" data-ember-action="" data-ember-action-1048="1048">
+    <i class="fa fa-facebook-square"></i>
+</a>
+</div>
+  <div id="ember1050" class="social-link ember-view"><a href="" title="send this link in an email" aria-label="send this link in an email" data-ember-action="" data-ember-action-1051="1051">
+    <i class="fa fa-envelope-square"></i>
+</a>
+</div>
+
+<!---->
+<div class="link">
+  <a href="" aria-label="close" title="close" class="close-share" data-ember-action="" data-ember-action-1052="1052"><i class="fa fa-close"></i></a>
+</div>
+</div>
+
+<!----></div>
+  <div id="user-card" class="show-badges no-bg ember-view"><!----></div>
+
+</div>
+
+<span id="ember1064" class="ember-view"><!----></span>
+  <div id="ember1065" class="ember-view">
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(["setDomains", ["*.community.cloud.online.net"]]);
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//stats.cloud.online.net/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 4]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//stats.cloud.online.net/piwik.php?idsite=4" style="border:0;" alt=""></p></noscript>
+<!-- End Piwik Code -->
+
+</div>
+<span id="ember1066" class="ember-view"><!----></span>
+
+<div data-keyboard="false" id="discourse-modal" class="modal hidden ember-view">  <div class="modal-outer-container">
+    <div class="modal-middle-container">
+      <div class="modal-inner-container">
+        <div class="modal-header">
+          <a class="close" data-ember-action="" data-ember-action-1076="1076"><i class="fa fa-times"></i></a>
+          <h3></h3>
+          <div class="clearfix"></div>
+        </div>
+        <div id="modal-alert"></div>
+        <div id="ember1121" class="ember-view"></div>
+
+<!---->      </div>
+    </div>
+  </div>
+</div>
+<div id="topic-entrance" class="hidden ember-view"><button id="ember1081" class="full jump-top btn no-text ember-view"><!---->
+
+  <i class="fa fa-caret-up"></i> Invalid date
+
+</button>
+<button id="ember1082" class="full jump-button btn no-text ember-view"><!---->
+
+  Invalid date <i class="fa fa-caret-down"></i>
+
+</button></div>
+<div id="reply-control" class="closed ember-view processed"><div class="grippie"></div><!----></div>
+</div></section>
+
+    <div id="offscreen-content">
+    </div>
+
+      <form id="hidden-login-form" method="post" action="/login" style="display: none;">
+        <input name="username" id="signin_username" type="text">
+        <input name="password" id="signin_password" type="password">
+        <input name="redirect" type="hidden">
+        <input id="signin-button" value="Log In" type="submit">
+      </form>
+
+      <script>
+      (function() {
+        var ps = require('preload-store').default;
+          ps.store("site", {"default_archetype":"regular","notification_types":{"mentioned":1,"replied":2,"quoted":3,"edited":4,"liked":5,"private_message":6,"invited_to_private_message":7,"invitee_accepted":8,"posted":9,"moved_post":10,"linked":11,"granted_badge":12,"invited_to_topic":13,"custom":14,"group_mentioned":15,"group_message_summary":16,"watching_first_post":17},"post_types":{"regular":1,"moderator_action":2,"small_action":3,"whisper":4},"groups":[{"id":1,"name":"admins"},{"id":0,"name":"everyone"},{"id":2,"name":"moderators"},{"id":3,"name":"staff"},{"id":10,"name":"trust_level_0"},{"id":11,"name":"trust_level_1"},{"id":12,"name":"trust_level_2"},{"id":13,"name":"trust_level_3"},{"id":14,"name":"trust_level_4"}],"filters":["latest","unread","new","read","posted","bookmarks"],"periods":["all","yearly","quarterly","monthly","weekly","daily"],"top_menu_items":["latest","unread","new","read","posted","bookmarks","category","categories","top"],"anonymous_top_menu_items":["latest","top","categories","category","categories","top"],"uncategorized_category_id":1,"is_readonly":false,"disabled_plugins":[],"user_field_max_length":2048,"suppressed_from_homepage_category_ids":[],"post_action_types":[{"name_key":"bookmark","name":"Bookmark","description":"Bookmark this post","long_form":"bookmarked this post","is_flag":false,"icon":null,"id":1,"is_custom_flag":false},{"name_key":"like","name":"Like","description":"Like this post","long_form":"liked this","is_flag":false,"icon":"heart","id":2,"is_custom_flag":false},{"name_key":"off_topic","name":"Off-Topic","description":"This post is not relevant to the current discussion as defined by the title and first post, and should probably be moved elsewhere.","long_form":"flagged this as off-topic","is_flag":true,"icon":null,"id":3,"is_custom_flag":false},{"name_key":"inappropriate","name":"Inappropriate","description":"This post contains content that a reasonable person would consider offensive, abusive, or a violation of <a href=\"/guidelines\">our community guidelines<\/a>.","long_form":"flagged this as inappropriate","is_flag":true,"icon":null,"id":4,"is_custom_flag":false},{"name_key":"vote","name":"Vote","description":"Vote for this post","long_form":"voted for this post","is_flag":false,"icon":null,"id":5,"is_custom_flag":false},{"name_key":"spam","name":"Spam","description":"This post is an advertisement. It is not useful or relevant to the current topic, but promotional in nature.","long_form":"flagged this as spam","is_flag":true,"icon":null,"id":8,"is_custom_flag":false},{"name_key":"notify_user","name":"Send @{{username}} a message","description":"I want to talk to this person directly and privately about their post.","long_form":"messaged user","is_flag":true,"icon":null,"id":6,"is_custom_flag":true},{"name_key":"notify_moderators","name":"Something Else","description":"This post requires staff attention for another reason not listed above.","long_form":"flagged this for staff attention","is_flag":true,"icon":null,"id":7,"is_custom_flag":true}],"topic_flag_types":[{"name_key":"inappropriate","name":"Inappropriate","description":"This topic contains content that a reasonable person would consider offensive, abusive, or a violation of <a href=\"/guidelines\">our community guidelines<\/a>.","long_form":"flagged this as inappropriate","is_flag":true,"icon":null,"id":4,"is_custom_flag":false},{"name_key":"spam","name":"Spam","description":"This topic is an advertisement. It is not useful or relevant to this site, but promotional in nature.","long_form":"flagged this as spam","is_flag":true,"icon":null,"id":8,"is_custom_flag":false},{"name_key":"notify_moderators","name":"Something Else","description":"This topic requires general staff attention based on the <a href=\"/guidelines\">guidelines<\/a>, <a href=\"/tos\">TOS<\/a>, or for another reason not listed above.","long_form":"flagged this for moderator attention","is_flag":true,"icon":null,"id":7,"is_custom_flag":true}],"can_create_tag":false,"can_tag_topics":false,"topic_featured_link_allowed_category_ids":[1,4,50,52,55,60,51,44,54,49,57,53,11,58,56,10,8,59,48,6],"categories":[{"id":1,"name":"uncategorized","color":"AB9364","text_color":"FFFFFF","slug":"uncategorized","topic_count":0,"post_count":1,"position":0,"description":"Topics that don't need a category, or don't fit into any other existing category.","description_text":"","topic_url":"/t//","read_restricted":false,"permission":null,"notification_level":1,"topic_template":null,"has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":60,"name":"Scaleway","color":"92278F","text_color":"FFFFFF","slug":"scaleway","topic_count":35,"post_count":84,"position":1,"description":null,"description_text":null,"topic_url":"/t/about-the-scaleway-category/2653","read_restricted":false,"permission":null,"notification_level":1,"topic_template":"","has_children":true,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":11,"name":"Official","color":"F1592A","text_color":"FFFFFF","slug":"official","topic_count":14,"post_count":195,"position":2,"description":"Official announcement are flagged under this category","description_text":"Official announcement are flagged under this category","topic_url":"/t/about-the-official-category/34","read_restricted":false,"permission":null,"parent_category_id":60,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":44,"name":"Tutorials","color":"AB9364","text_color":"FFFFFF","slug":"tutorials","topic_count":47,"post_count":232,"position":4,"description":"Read, write, share tutorials on Online Cloud.","description_text":"Read, write, share tutorials on Online Cloud.","topic_url":"/t/about-the-tutorials-category/315","read_restricted":false,"permission":null,"parent_category_id":60,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":6,"name":"Feedback","color":"3AB54A","text_color":"FFFFFF","slug":"feedback","topic_count":205,"post_count":1045,"position":5,"description":"Help us to build the best cloud platform! Create new topic under the Feedback tag and let us know the features you want to see on Online Cloud.","description_text":"Help us to build the best cloud platform! Create new topic under the Feedback tag and let us know the features you want to see on Online Cloud.","topic_url":"/t/about-the-feedback-category/8","read_restricted":false,"permission":null,"parent_category_id":60,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":10,"name":"Question","color":"92278F","text_color":"FFFFFF","slug":"question","topic_count":511,"post_count":1997,"position":6,"description":"Ask your questions or answer others in the Question section.","description_text":"Ask your questions or answer others in the Question section.","topic_url":"/t/about-the-question-category/26","read_restricted":false,"permission":null,"parent_category_id":60,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":8,"name":"Troubleshooting","color":"25AAE2","text_color":"FFFFFF","slug":"troubleshooting","topic_count":271,"post_count":1252,"position":6,"description":"If you are having a trouble with Online Cloud, describe your problem in a topic with the Troubleshooting tag.","description_text":"If you are having a trouble with Online Cloud, describe your problem in a topic with the Troubleshooting tag.","topic_url":"/t/about-the-comments-category/10","read_restricted":false,"permission":null,"parent_category_id":60,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":48,"name":"InstantApps","color":"BF1E2E","text_color":"FFFFFF","slug":"instantapps","topic_count":56,"post_count":227,"position":11,"description":null,"description_text":null,"topic_url":"/t/about-the-instantapps-category/859","read_restricted":false,"permission":null,"parent_category_id":60,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":50,"name":"Online","color":"AB9364","text_color":"FFFFFF","slug":"online","topic_count":11,"post_count":23,"position":12,"description":"This category is all about Online products.","description_text":"This category is all about Online products.","topic_url":"/t/about-the-online-category/2643","read_restricted":false,"permission":null,"notification_level":1,"topic_template":"","has_children":true,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":51,"name":"Dedicated Server Dedibox","color":"AB9364","text_color":"FFFFFF","slug":"dedicated-server","topic_count":105,"post_count":258,"position":13,"description":"This is a category where you can ask questions about Dedibox dedicated server.","description_text":"This is a category where you can ask questions about Dedibox dedicated server.","topic_url":"/t/about-the-dedicated-server-category/2644","read_restricted":false,"permission":null,"parent_category_id":50,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":52,"name":"Shared Hosting","color":"3AB54A","text_color":"FFFFFF","slug":"shared-hosting","topic_count":5,"post_count":8,"position":14,"description":"This is a category where you can ask questions about the shared hosting.","description_text":"This is a category where you can ask questions about the shared hosting.","topic_url":"/t/about-the-shared-hosting-category/2645","read_restricted":false,"permission":null,"parent_category_id":50,"notification_level":1,"topic_template":null,"has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":53,"name":"C14","color":"ED207B","text_color":"FFFFFF","slug":"c14","topic_count":6,"post_count":16,"position":15,"description":"This is a category where you can ask questions about C14","description_text":"This is a category where you can ask questions about C14","topic_url":"/t/about-the-c14-category/2646","read_restricted":false,"permission":null,"parent_category_id":50,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":54,"name":"Domain Name","color":"F7941D","text_color":"FFFFFF","slug":"domain-name","topic_count":4,"post_count":11,"position":16,"description":"This is a category where you can ask questions about BookMyName.","description_text":"This is a category where you can ask questions about BookMyName.","topic_url":"/t/about-the-domain-name-category/2647","read_restricted":false,"permission":null,"parent_category_id":50,"notification_level":1,"topic_template":null,"has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":55,"name":"Dedirack","color":"BF1E2E","text_color":"FFFFFF","slug":"dedirack","topic_count":2,"post_count":2,"position":17,"description":"This is a category where you can ask questions about Dedirack.","description_text":"This is a category where you can ask questions about Dedirack.","topic_url":"/t/about-the-dedirack-category/2648","read_restricted":false,"permission":null,"parent_category_id":50,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":56,"name":"Official","color":"AB9364","text_color":"FFFFFF","slug":"official","topic_count":2,"post_count":2,"position":18,"description":"Official announcement are flagged under this category.","description_text":"Official announcement are flagged under this category.","topic_url":"/t/about-the-official-category/2649","read_restricted":false,"permission":null,"parent_category_id":50,"notification_level":1,"topic_template":null,"has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":49,"name":"Comments","color":"B3B5B4","text_color":"FFFFFF","slug":"comments","topic_count":77,"post_count":183,"position":19,"description":null,"description_text":null,"topic_url":"/t/about-the-comments-category/1150","read_restricted":false,"permission":null,"notification_level":1,"topic_template":"","has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":57,"name":"Feedback","color":"B3B5B4","text_color":"FFFFFF","slug":"feedback","topic_count":11,"post_count":31,"position":20,"description":"Create new topic under the Feedback tag and let us know the features you want to see on Online.","description_text":"Create new topic under the Feedback tag and let us know the features you want to see on Online.","topic_url":"/t/about-the-feedback-category/2650","read_restricted":false,"permission":null,"parent_category_id":50,"notification_level":1,"topic_template":null,"has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":58,"name":"Troubleshooting","color":"652D90","text_color":"FFFFFF","slug":"troubleshooting","topic_count":31,"post_count":91,"position":21,"description":"If you are having a trouble with Online products, describe your problem in a topic with the Troubleshooting tag.","description_text":"If you are having a trouble with Online products, describe your problem in a topic with the Troubleshooting tag.","topic_url":"/t/about-the-troubleshooting-category/2651","read_restricted":false,"permission":null,"parent_category_id":50,"notification_level":1,"topic_template":null,"has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null},{"id":59,"name":"Question","color":"0E76BD","text_color":"FFFFFF","slug":"question","topic_count":22,"post_count":57,"position":22,"description":"Ask your questions or answer others in the Question section.","description_text":"Ask your questions or answer others in the Question section.","topic_url":"/t/about-the-question-category/2652","read_restricted":false,"permission":null,"parent_category_id":50,"notification_level":1,"topic_template":null,"has_children":false,"sort_order":null,"sort_ascending":null,"uploaded_logo":null,"uploaded_background":null}],"trust_levels":[{"id":0,"name":"new user"},{"id":1,"name":"basic user"},{"id":2,"name":"member"},{"id":3,"name":"regular"},{"id":4,"name":"leader"}],"archetypes":[{"id":"regular","name":"Regular Topic","options":[]},{"id":"banner","name":"Banner Topic","options":[]}],"user_fields":[]});
+          ps.store("siteSettings", {"title":"Online Scaleway - Community","contact_email":"noreply@online.net","contact_url":"","logo_url":"https://blog.online.net/assets/images/apple-touch-icon-152x152.png","logo_small_url":"https://blog.online.net/assets/images/favicon.ico","mobile_logo_url":"https://blog.online.net/assets/images/apple-touch-icon-152x152.png","favicon_url":"https://blog.online.net/assets/images/favicon.ico","allow_user_locale":true,"suggested_topics":5,"track_external_right_clicks":false,"ga_universal_tracking_code":"","ga_universal_domain_name":"auto","ga_tracking_code":"","ga_domain_name":"","gtm_container_id":"","top_menu":"categories|latest|new|unread|starred|top|feedback|like","post_menu":"like-count|like|share|flag|edit|bookmark|delete|admin|reply","post_menu_hidden_items":"flag|bookmark|edit|delete|admin","share_links":"twitter|facebook|email","desktop_category_page_style":"categories_and_latest_topics","category_colors":"BF1E2E|F1592A|F7941D|9EB83B|3AB54A|12A89D|25AAE2|0E76BD|652D90|92278F|ED207B|8C6238|231F20|808281|B3B5B4|283890","category_style":"bullet","enable_mobile_theme":true,"relative_date_duration":30,"category_featured_topics":4,"fixed_category_positions":true,"fixed_category_positions_on_create":false,"show_subcategory_list":true,"enable_badges":true,"enable_badge_sql":false,"enable_whispers":false,"invite_only":false,"login_required":false,"must_approve_users":false,"enable_local_logins":true,"allow_new_registrations":true,"enable_signup_cta":true,"enable_google_oauth2_logins":false,"enable_yahoo_logins":false,"enable_twitter_logins":false,"enable_instagram_logins":false,"enable_facebook_logins":false,"enable_github_logins":false,"enable_sso":false,"sso_overrides_avatar":false,"min_username_length":3,"max_username_length":20,"min_password_length":2,"min_admin_password_length":6,"logout_redirect":"","full_name_required":false,"enable_names":false,"invites_per_page":40,"delete_user_max_post_age":60,"delete_all_posts_max":15,"show_email_on_profile":false,"prioritize_username_in_ux":true,"enable_user_directory":true,"allow_anonymous_posting":false,"anonymous_posting_min_trust_level":1,"hide_user_profiles_from_public":false,"enable_group_directory":true,"min_post_length":20,"min_first_post_length":20,"min_private_message_post_length":10,"max_post_length":32000,"topic_featured_link_enabled":true,"min_topic_title_length":10,"max_topic_title_length":255,"min_private_message_title_length":2,"allow_uncategorized_topics":false,"min_title_similar_length":10,"min_body_similar_length":15,"enable_private_messages":true,"edit_history_visible_to_public":false,"delete_removed_posts_after":24,"traditional_markdown_linebreaks":false,"allow_html_tables":false,"suppress_reply_directly_below":true,"suppress_reply_directly_above":true,"max_reply_history":1,"newuser_max_images":1,"newuser_max_attachments":1,"show_pinned_excerpt_mobile":true,"show_pinned_excerpt_desktop":true,"display_name_on_posts":false,"show_time_gap_days":7,"short_progress_text_threshold":10000,"default_code_lang":"auto","autohighlight_all_code":true,"highlighted_languages":"apache|bash|cs|cpp|css|coffeescript|diff|xml|http|ini|json|java|javascript|makefile|markdown|nginx|objectivec|ruby|perl|php|python|sql|handlebars","censored_words":"","censored_pattern":"","enable_emoji":true,"emoji_set":"emoji_one","code_formatting_style":"4-spaces-indent","allowed_href_schemes":"","email_time_window_mins":10,"disable_digest_emails":false,"email_in":false,"disable_emails":false,"bounce_score_threshold":4,"max_image_size_kb":3072,"max_attachment_size_kb":3072,"authorized_extensions":"jpg|jpeg|png|gif","max_image_width":690,"max_image_height":500,"prevent_anons_from_downloading_files":false,"enable_s3_uploads":false,"allow_profile_backgrounds":true,"allow_uploaded_avatars":true,"allow_animated_avatars":false,"default_avatars":"","external_system_avatars_enabled":true,"external_system_avatars_url":"/letter_avatar_proxy/v2/letter/{first_letter}/{color}/{size}.png","tl1_requires_read_posts":0,"tl3_links_no_follow":false,"use_admin_ip_whitelist":false,"max_oneboxes_per_post":50,"alert_admins_if_errors_per_minute":0,"alert_admins_if_errors_per_hour":0,"max_prints_per_hour_per_user":5,"enable_long_polling":true,"long_polling_base_url":"/","background_polling_interval":60000,"polling_interval":3000,"anon_polling_interval":15000,"flush_timings_secs":20,"verbose_localization":false,"max_new_topics":500,"tos_url":"","privacy_policy_url":"","faq_url":"","maximum_backups":5,"min_search_term_length":3,"version_checks":true,"suppress_uncategorized_badge":true,"topic_views_heat_low":1000,"topic_views_heat_medium":2000,"topic_views_heat_high":5000,"topic_post_like_heat_low":0.5,"topic_post_like_heat_medium":1.0,"topic_post_like_heat_high":2.0,"history_hours_low":12,"history_hours_medium":24,"history_hours_high":48,"cold_age_days_low":14,"cold_age_days_medium":90,"cold_age_days_high":180,"global_notice":"","show_create_topics_notice":true,"bootstrap_mode_min_users":50,"bootstrap_mode_enabled":false,"automatically_unpin_topics":true,"read_time_word_count":500,"disable_mailing_list_mode":false,"default_topics_automatic_unpin":true,"tagging_enabled":false,"tag_style":"simple","max_tags_per_topic":5,"max_tag_length":20,"min_trust_level_to_tag_topics":0,"max_tag_search_results":5,"show_filter_by_tag":false,"tags_sort_alphabetically":false,"staff_tags":"","suppress_overlapping_tags_in_list":false,"poll_enabled":true,"poll_maximum_options":20,"details_enabled":true,"available_locales":"ar|bs_BA|cs|da|de|en|es|et|fa_IR|fi|fr|gl|he|id|it|ja|ko|nb_NO|nl|pl_PL|pt|pt_BR|ro|ru|sk|sq|sv|te|tr_TR|uk|ur|vi|zh_CN|zh_TW"});
+          ps.store("customHTML", {"top":"\n<header class=\"blog-header\" style=\"background-image: url('http://blog.online.net/content/images/2016/06/img_blog_homepage.png')\">\n<\/header>","footer":"\n<!-- Piwik -->\n<script type=\"text/javascript\">\n  var _paq = _paq || [];\n  _paq.push([\"setDomains\", [\"*.community.cloud.online.net\"]]);\n  _paq.push(['trackPageView']);\n  _paq.push(['enableLinkTracking']);\n  (function() {\n    var u=\"//stats.cloud.online.net/\";\n    _paq.push(['setTrackerUrl', u+'piwik.php']);\n    _paq.push(['setSiteId', 4]);\n    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];\n    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);\n  })();\n<\/script>\n<noscript><p><img src=\"//stats.cloud.online.net/piwik.php?idsite=4\" style=\"border:0;\" alt=\"\"><\/p><\/noscript>\n<!-- End Piwik Code -->\n"});
+          ps.store("banner", {});
+          ps.store("customEmoji", []);
+          ps.store("translationOverrides", {});
+          ps.store("topic_2684", {"post_stream":{"posts":[{"id":5949,"username":"Scaleway","avatar_template":"/user_avatar/community.online.net/scaleway/{size}/484_1.png","created_at":"2016-07-01T18:07:26.563Z","cooked":"<div>\n<div>\n\n<br>\n\n<h1>How to start a server with additional volume from the API<a href=\"https://www.scaleway.com#-How-to-start-a-server-with-additional-volume-from-the-API\" rel=\"nofollow\"><\/a>\n\n<br>\n\n<\/h1>\n\n<br>\n\n<p>This page shows you some basics to interact with the Compute API.<\/p>\n\n<br>\n\n<blockquote>\n\n<br>\n\n<p><strong>Requirements<\/strong><\/p>\n\n<br>\n\n<ul>\n\n<br>\n\n<li>You have an account and are logged into <a href=\"https://www.scaleway.com/cloud.scaleway.com\" rel=\"nofollow\">cloud.scaleway.com<\/a>\n\n<br>\n\n<\/li>\n\n<br>\n\n<li>You have configured your SSH Key<\/li>\n\n<br>\n\n<li>You have generated your API Token<\/li>\n\n<br>\n\n<li>You know your Organization ID<\/li>\n\n<br>\n\n<\/ul>\n\n<br>\n\n<\/blockquote>\n\n<p><\/p>\n<pre><code>curl -H \"X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;\" https://api.cloud.online.net/images<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><p>Response<\/p>\n<br><div>\n\n<p><\/p>\n<pre><code>{\n  \"images\": [\n    {\n      \"arch\": \"arm\",\n      \"creation_date\": \"2014-06-04T12:38:32.534063+00:00\",\n      \"extra_volumes\": \"[]\",\n      \"from_image\": null,\n      \"from_server\": null,\n-&gt;    \"id\": \"fe8dfea7-bb8c-490c-a554-1a44a3c4af8c\",\n      \"marketplace_key\": null,\n      \"modification_date\": \"2014-06-04T12:38:32.534063+00:00\",\n-&gt;    \"name\": \"Ubuntu Trusty (14.04) on SSD 2014.06.04\",\n      \"organization\": \"cc57d96c-03ac-44a5-bc91-8d1de2bbf8a8\",\n      \"public\": true,\n      \"root_volume\": {\n        \"id\": \"c583bf78-ebd5-4ebc-863f-71905d2c39fd\",\n        \"name\": \"Ubuntu Trusty RootFS snapshot\"\n      }\n    }\n  ]\n}<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><h2>Step 2 - Create a new server<a href=\"https://www.scaleway.com#-Step-2--Create-a-new-server\" rel=\"nofollow\"><\/a><br>\n<\/h2>\n<br><p>To create a server, you have to fill out the following input:<\/p>\n<br><ul>\n<br><li>A server name<\/li>\n<br><li>An Organization ID<\/li>\n<br><li>An Image ID<\/li>\n<br><li>Tags (Optional)<\/li>\n<br>\n<\/ul>\n<br><p>Request<\/p>\n<br><div>\n\n<p><\/p>\n<pre><code>curl https://api.cloud.online.net/servers \\\n-H \"X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;\" \\\n-H \"Content-Type: application/json\" \\\n-d '{ \\\n\"name\": \"&lt;YOUR_SERVER_NAME&gt;\",\n\"image\": \"fe8dfea7-bb8c-490c-a554-1a44a3c4af8c\",\n\"tags\": [\"temporary\", \"test\"],\n\"organization\": \"&lt;YOUR_ORGANIZATION_ID&gt;\"\n}'<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><p>Response<\/p>\n<br><div>\n\n<p><\/p>\n<pre><code>{\n  \"server\": {\n    \"dynamic_public_ip\": false,\n    \"id\": \"c88d1aee-b65d-4ab9-bafd-3df293782693\",\n    \"image\": {\n      \"id\": \"fe8dfea7-bb8c-490c-a554-1a44a3c4af8c\",\n      \"name\": \"Ubuntu Trusty (14.04) on SSD 2014.06.04\"\n    },\n    \"name\": \"&lt;YOUR_SERVER_NAME&gt;\",\n    \"organization\": \"&lt;YOUR_ORGANIZATION_ID&gt;\",\n    \"private_ip\": null,\n    \"public_ip\": null,\n    \"state\": \"stopped\",\n    \"state_detail\": \"\",\n    \"tags\": [\n      \"temporary\",\n      \"test\"\n    ],\n    \"volumes\": {\n      \"0\": {\n        \"export_uri\": null,\n        \"id\": \"1a96f139-95f8-4680-aeeb-0a58229d18d5\",\n        \"name\": \"Ubuntu Trusty RootFS snapshot\",\n        \"organization\": \"&lt;YOUR_ORGANIZATION_ID&gt;\",\n        \"server\": {\n          \"id\": \"c88d1aee-b65d-4ab9-bafd-3df293782693\",\n          \"name\": \"&lt;YOUR_SERVER_NAME&gt;\"\n        },\n        \"size\": 20000000000,\n        \"volume_type\": \"l_ssd\"\n      }\n    }\n  }\n}<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><p>The response above returns an HTTP 201 code with the server details.<\/p>\n<br><h2>Step 3 - Create a new volume<a href=\"https://www.scaleway.com#-Step-3--Create-a-new-volume\" rel=\"nofollow\"><\/a><br>\n<\/h2>\n<br><p>To create a volume, you have to fill out the following input:<\/p>\n<br><ul>\n<br><li>A volume name<\/li>\n<br><li>An Organization ID<\/li>\n<br><li>A size in GB<\/li>\n<br><li>The volume type - LSSD (Local solid state drive) or LHDD (Local spinning disk)<\/li>\n<br>\n<\/ul>\n<br><p>You can create and attach additional volumes to an existing server. The server must be stopped.<\/p>\n<br><p>Let’s create a new volume of type SSD with a size of 10GB.<\/p>\n<br><p>Request<\/p>\n<br><div>\n\n<p><\/p>\n<pre><code>curl https://api.cloud.online.net/volumes \\\n-H \"X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;\" \\\n-H \"Content-Type: application/json\" \\\n-d '{\n\"name\": \"&lt;YOUR_VOLUME_NAME&gt;\",\n\"organization\": \"&lt;YOUR_ORGANIZATION_ID&gt;\",\n\"size\": 10000000000,\n\"volume_type\": \"l_ssd\"\n}'<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><p>Response<\/p>\n<br><div>\n\n<p><\/p>\n<pre><code>{\n  \"volume\": {\n    \"export_uri\": null,\n    \"id\": \"65e7d766-103b-4fb1-819a-fb95e3a15348\",\n    \"name\": \"&lt;YOUR_VOLUME_NAME&gt;\",\n    \"organization\": \"&lt;YOUR_ORGANIZATION_ID&gt;\",\n    \"server\": null,\n    \"size\": 10000000000,\n    \"volume_type\": \"l_ssd\"\n  }\n}<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><p>The response above returns an HTTP 201 code with the volume details.<\/p>\n<br><h2>Step 4 - Attach the volume to the server<a href=\"https://www.scaleway.com#-Step-4--Attach-the-volume-to-the-server\" rel=\"nofollow\"><\/a><br>\n<\/h2>\n<br><p>To attach an additional volume to an existing server, you have to perform a PUT method requests on the server.<\/p>\n<br><p>Request<\/p>\n<br><div>\n\n<p><\/p>\n<pre><code>curl https://api.cloud.online.net/servers/&lt;YOUR_SERVER_ID&gt; \\\n-H \"X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;\" \\\n-H \"Content-Type: application/json\" \\\n-X PUT\n-d '{\n\"dynamic_public_ip\": false,\n\"id\": \"c88d1aee-b65d-4ab9-bafd-3df293782693\",\n\"image\": {\n\"id\": \"fe8dfea7-bb8c-490c-a554-1a44a3c4af8c\",\n\"name\": \"Ubuntu Trusty (14.04) on SSD 2014.06.04\"\n},\n\"name\": \"&lt;YOUR_SERVER_NAME&gt;\",\n\"organization\": \"&lt;YOUR_ORGANIZATION_ID&gt;\",\n\"private_ip\": null,\n\"public_ip\": null,\n\"state\": \"stopped\",\n\"state_detail\": \"\",\n\"tags\": [\n\"temporary\",\n\"test\"\n],\n\"volumes\": {\n---&gt; \"0\": {\"id\": \"1a96f139-95f8-4680-aeeb-0a58229d18d5\", \"name\": \"volume 1\"},\n---&gt; \"1\": {\"id\": \"65e7d766-103b-4fb1-819a-fb95e3a15348\", \"name\": \"volume 2\"}\n}\n}'<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><p>Response<\/p>\n<br><div>\n\n<p><\/p>\n<pre><code>{\n  \"server\": {\n    \"dynamic_public_ip\": false,\n    \"id\": \"c88d1aee-b65d-4ab9-bafd-3df293782693\",\n    \"image\": {\n      \"id\": \"fe8dfea7-bb8c-490c-a554-1a44a3c4af8c\",\n      \"name\": \"Ubuntu Trusty (14.04) on SSD 2014.06.04\"\n    },\n    \"name\": \"&lt;YOUR_SERVER_NAME&gt;\",\n    \"organization\": \"&lt;YOUR_ORGANIZATION_ID&gt;\",\n    \"private_ip\": null,\n    \"public_ip\": null,\n    \"state\": \"stopped\",\n    \"state_detail\": \"\",\n    \"tags\": [\n      \"temporary\",\n      \"test\"\n    ],\n    \"volumes\": {\n      \"0\": {\n        \"export_uri\": null,\n        \"id\": \"1a96f139-95f8-4680-aeeb-0a58229d18d5\",\n        \"name\": \"Ubuntu Trusty RootFS snapshot\",\n        \"organization\": \"&lt;YOUR_ORGANIZATION_ID&gt;\",\n        \"server\": {\n          \"id\": \"c88d1aee-b65d-4ab9-bafd-3df293782693\",\n          \"name\": \"&lt;YOUR_SERVER_NAME&gt;\"\n        },\n        \"size\": 20000000000,\n        \"volume_type\": \"l_ssd\"\n      },\n      \"1\": {\n        \"export_uri\": null,\n        \"id\": \"65e7d766-103b-4fb1-819a-fb95e3a15348\",\n        \"name\": \"&lt;YOUR_VOLUME_NAME&gt;\",\n        \"organization\": \"&lt;YOUR_ORGANIZATION_ID&gt;\",\n        \"server\": {\n          \"id\": \"c88d1aee-b65d-4ab9-bafd-3df293782693\",\n          \"name\": \"&lt;YOUR_SERVER_NAME&gt;\"\n        },\n        \"size\": 10000000000,\n        \"volume_type\": \"l_ssd\"\n      }\n    }\n  }\n}<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><h2>Step 5 - Start a server<a href=\"https://www.scaleway.com#-Step-5--Start-a-server\" rel=\"nofollow\"><\/a><br>\n<\/h2>\n<br><p>To start your server, execute the following request where <code>&lt;YOUR_SERVER_ID&gt;<\/code> is your server id.<\/p>\n<br><p>Request<\/p>\n<br><div>\n\n<p><\/p>\n<pre><code>curl -H \"X-Auth-Token: &lt;YOUR_API_TOKEN_HERE&gt;\" https://api.cloud.online.net/servers/&lt;YOUR_SERVER_ID&gt;/action \\\n -d '{\"action\":\"poweron\"}' -H \"Content-Type: application/json\"<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><p>Response<\/p>\n<br><div>\n\n<p><\/p>\n<pre><code>{\n  \"task\": {\n    \"description\": \"server_batch_poweron\",\n    \"href_from\": \"/servers/c88d1aee-b65d-4ab9-bafd-3df293782693/action\",\n    \"id\": \"1f8e2202-83b3-463b-948d-9d1e5aa7dfe1\",\n    \"progress\": \"0\",\n    \"started_at\": \"2014-07-22T12:17:39.067932+00:00\",\n    \"status\": \"pending\",\n    \"terminated_at\": null\n  }\n}<\/code><\/pre>\n\n<p><\/p>\n<\/div>\n<br><p>To go even further you can access the <a href=\"https://www.scaleway.com/developer.scaleway.com/\" rel=\"nofollow\">API Documentation<\/a>.<\/p>\n<br>\n<\/div>\n\n<hr>\n\n<br>\n\n<small>This is a companion discussion topic for the original entry at <a href=\"https://www.scaleway.com/docs/interact-with-the-compute-api/?embed_url=https://www.scaleway.com/docs/interact-with-the-compute-api/\" rel=\"nofollow\">https://www.scaleway.com/docs/interact-with-the-compute-api/?embed_url=https://www.scaleway.com/docs/interact-with-the-compute-api/<\/a><\/small>","post_number":1,"post_type":1,"updated_at":"2016-07-01T18:07:26.563Z","reply_count":0,"reply_to_post_number":null,"quote_count":0,"avg_time":56,"incoming_link_count":8,"reads":6,"score":34.0,"yours":false,"topic_id":2684,"topic_slug":"how-to-start-a-server-with-additional-volume-from-the-api-scaleway","primary_group_name":null,"primary_group_flair_url":null,"primary_group_flair_bg_color":null,"primary_group_flair_color":null,"version":1,"can_edit":false,"can_delete":false,"can_recover":false,"can_wiki":false,"link_counts":[{"url":"https://www.scaleway.com/developer.scaleway.com/","internal":false,"reflection":false,"clicks":4},{"url":"https://www.scaleway.com#-Step-5--Start-a-server","internal":false,"reflection":false,"title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","clicks":0},{"url":"https://www.scaleway.com#-Step-4--Attach-the-volume-to-the-server","internal":false,"reflection":false,"title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","clicks":0},{"url":"https://www.scaleway.com#-Step-3--Create-a-new-volume","internal":false,"reflection":false,"title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","clicks":0},{"url":"https://www.scaleway.com#-Step-2--Create-a-new-server","internal":false,"reflection":false,"title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","clicks":0},{"url":"https://www.scaleway.com#-Step-1--Retrieve-the-list-of-images-available","internal":false,"reflection":false,"title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","clicks":0},{"url":"https://www.scaleway.com/cloud.scaleway.com","internal":false,"reflection":false,"clicks":0},{"url":"https://www.scaleway.com/docs/interact-with-the-compute-api/?embed_url=https://www.scaleway.com/docs/interact-with-the-compute-api/","internal":false,"reflection":false,"title":"How to start a server with additional volume from the API | Scaleway","clicks":0},{"url":"https://www.scaleway.com#-How-to-start-a-server-with-additional-volume-from-the-API","internal":false,"reflection":false,"title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","clicks":0}],"read":true,"user_title":null,"actions_summary":[],"moderator":false,"admin":false,"staff":false,"user_id":768,"hidden":false,"hidden_reason_id":null,"trust_level":1,"deleted_at":null,"user_deleted":false,"edit_reason":null,"can_view_edit_history":false,"wiki":false}],"stream":[5949]},"timeline_lookup":[[1,269]],"id":2684,"title":"How to start a server with additional volume from the API | Scaleway","fancy_title":"How to start a server with additional volume from the API | Scaleway","posts_count":1,"created_at":"2016-07-01T18:07:26.372Z","views":155,"reply_count":0,"participant_count":1,"like_count":0,"last_posted_at":"2016-07-01T18:07:26.563Z","visible":true,"closed":false,"archived":false,"has_summary":false,"archetype":"regular","slug":"how-to-start-a-server-with-additional-volume-from-the-api-scaleway","category_id":49,"word_count":1184,"deleted_at":null,"user_id":768,"draft":null,"draft_key":"topic_2684","draft_sequence":null,"unpinned":null,"pinned_globally":false,"pinned":false,"pinned_at":null,"pinned_until":null,"details":{"auto_close_at":null,"auto_close_hours":null,"auto_close_based_on_last_post":false,"created_by":{"id":768,"username":"Scaleway","avatar_template":"/user_avatar/community.online.net/scaleway/{size}/484_1.png"},"last_poster":{"id":768,"username":"Scaleway","avatar_template":"/user_avatar/community.online.net/scaleway/{size}/484_1.png"},"participants":[{"id":768,"username":"Scaleway","avatar_template":"/user_avatar/community.online.net/scaleway/{size}/484_1.png","post_count":1,"primary_group_name":null,"primary_group_flair_url":null,"primary_group_flair_color":null,"primary_group_flair_bg_color":null}],"suggested_topics":[{"id":2683,"title":"How to create an image with Docker | Scaleway","fancy_title":"How to create an image with Docker | Scaleway","slug":"how-to-create-an-image-with-docker-scaleway","posts_count":1,"reply_count":0,"highest_post_number":1,"image_url":"/uploads/default/optimized/2X/6/68cb01f65e4baefe3efcbf9eb3ab188999158462_1_690x156.png","created_at":"2016-07-01T17:14:37.541Z","last_posted_at":"2016-07-01T17:14:37.725Z","bumped":true,"bumped_at":"2016-07-01T17:14:37.725Z","unseen":false,"pinned":false,"unpinned":null,"visible":true,"closed":false,"archived":false,"bookmarked":null,"liked":null,"archetype":"regular","like_count":0,"views":142,"category_id":49,"featured_link":null,"posters":[{"extras":"latest single","description":"Original Poster, Most Recent Poster","user":{"id":768,"username":"Scaleway","avatar_template":"/user_avatar/community.online.net/scaleway/{size}/484_1.png"}}]},{"id":2657,"title":"How to deploy WordPress with a click | Scaleway","fancy_title":"How to deploy WordPress with a click | Scaleway","slug":"how-to-deploy-wordpress-with-a-click-scaleway","posts_count":3,"reply_count":0,"highest_post_number":3,"image_url":null,"created_at":"2016-07-01T10:52:15.479Z","last_posted_at":"2016-08-07T21:15:08.209Z","bumped":true,"bumped_at":"2016-08-07T21:15:08.209Z","unseen":false,"pinned":false,"unpinned":null,"visible":true,"closed":false,"archived":false,"bookmarked":null,"liked":null,"archetype":"regular","like_count":1,"views":331,"category_id":49,"featured_link":null,"posters":[{"extras":null,"description":"Original Poster","user":{"id":768,"username":"Scaleway","avatar_template":"/user_avatar/community.online.net/scaleway/{size}/484_1.png"}},{"extras":null,"description":"Frequent Poster","user":{"id":1550,"username":"wgblondel","avatar_template":"/letter_avatar_proxy/v2/letter/w/49beb7/{size}.png"}},{"extras":"latest","description":"Most Recent Poster","user":{"id":1839,"username":"francesco","avatar_template":"/letter_avatar_proxy/v2/letter/f/e47c2d/{size}.png"}}]},{"id":2678,"title":"How to cache your Scaleway Scalable Infinite Storage (Scaleway SIS) objects with Varnish | Scaleway","fancy_title":"How to cache your Scaleway Scalable Infinite Storage (Scaleway SIS) objects with Varnish | Scaleway","slug":"how-to-cache-your-scaleway-scalable-infinite-storage-scaleway-sis-objects-with-varnish-scaleway","posts_count":1,"reply_count":0,"highest_post_number":1,"image_url":null,"created_at":"2016-07-01T16:35:27.737Z","last_posted_at":"2016-07-01T16:35:27.921Z","bumped":true,"bumped_at":"2016-07-01T16:35:27.921Z","unseen":false,"pinned":false,"unpinned":null,"visible":true,"closed":false,"archived":false,"bookmarked":null,"liked":null,"archetype":"regular","like_count":0,"views":163,"category_id":49,"featured_link":null,"posters":[{"extras":"latest single","description":"Original Poster, Most Recent Poster","user":{"id":768,"username":"Scaleway","avatar_template":"/user_avatar/community.online.net/scaleway/{size}/484_1.png"}}]},{"id":2666,"title":"How to use Object Storage with s3cmd | Scaleway","fancy_title":"How to use Object Storage with s3cmd | Scaleway","slug":"how-to-use-object-storage-with-s3cmd-scaleway","posts_count":1,"reply_count":0,"highest_post_number":1,"image_url":null,"created_at":"2016-07-01T11:36:15.223Z","last_posted_at":"2016-07-01T11:36:15.413Z","bumped":true,"bumped_at":"2016-07-01T11:36:15.413Z","unseen":false,"pinned":false,"unpinned":null,"visible":true,"closed":false,"archived":false,"bookmarked":null,"liked":null,"archetype":"regular","like_count":0,"views":74,"category_id":49,"featured_link":null,"posters":[{"extras":"latest single","description":"Original Poster, Most Recent Poster","user":{"id":768,"username":"Scaleway","avatar_template":"/user_avatar/community.online.net/scaleway/{size}/484_1.png"}}]},{"id":2655,"title":"How to collect and visualize your logs with the ELK stack (Elasticsearch Logstash Kibana) | Scaleway","fancy_title":"How to collect and visualize your logs with the ELK stack (Elasticsearch Logstash Kibana) | Scaleway","slug":"how-to-collect-and-visualize-your-logs-with-the-elk-stack-elasticsearch-logstash-kibana-scaleway","posts_count":1,"reply_count":0,"highest_post_number":1,"image_url":null,"created_at":"2016-07-01T10:49:45.069Z","last_posted_at":"2016-07-01T10:49:45.279Z","bumped":true,"bumped_at":"2016-07-01T10:49:45.279Z","unseen":false,"pinned":false,"unpinned":null,"visible":true,"closed":false,"archived":false,"bookmarked":null,"liked":null,"archetype":"regular","like_count":0,"views":45,"category_id":49,"featured_link":null,"posters":[{"extras":"latest single","description":"Original Poster, Most Recent Poster","user":{"id":768,"username":"Scaleway","avatar_template":"/user_avatar/community.online.net/scaleway/{size}/484_1.png"}}]}],"links":[{"url":"https://www.scaleway.com/developer.scaleway.com/","title":null,"fancy_title":null,"internal":false,"attachment":false,"reflection":false,"clicks":4,"user_id":768,"domain":"www.scaleway.com"},{"url":"https://www.scaleway.com/docs/interact-with-the-compute-api/?embed_url=https://www.scaleway.com/docs/interact-with-the-compute-api/","title":"How to start a server with additional volume from the API | Scaleway","fancy_title":null,"internal":false,"attachment":false,"reflection":false,"clicks":0,"user_id":768,"domain":"www.scaleway.com"},{"url":"https://www.scaleway.com#-How-to-start-a-server-with-additional-volume-from-the-API","title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","fancy_title":null,"internal":false,"attachment":false,"reflection":false,"clicks":0,"user_id":768,"domain":"www.scaleway.com"},{"url":"https://www.scaleway.com#-Step-4--Attach-the-volume-to-the-server","title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","fancy_title":null,"internal":false,"attachment":false,"reflection":false,"clicks":0,"user_id":768,"domain":"www.scaleway.com"},{"url":"https://www.scaleway.com#-Step-1--Retrieve-the-list-of-images-available","title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","fancy_title":null,"internal":false,"attachment":false,"reflection":false,"clicks":0,"user_id":768,"domain":"www.scaleway.com"},{"url":"https://www.scaleway.com#-Step-5--Start-a-server","title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","fancy_title":null,"internal":false,"attachment":false,"reflection":false,"clicks":0,"user_id":768,"domain":"www.scaleway.com"},{"url":"https://www.scaleway.com#-Step-2--Create-a-new-server","title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","fancy_title":null,"internal":false,"attachment":false,"reflection":false,"clicks":0,"user_id":768,"domain":"www.scaleway.com"},{"url":"https://www.scaleway.com#-Step-3--Create-a-new-volume","title":"Deploy BareMetal and Virtual cloud SSD server in seconds. | Scaleway","fancy_title":null,"internal":false,"attachment":false,"reflection":false,"clicks":0,"user_id":768,"domain":"www.scaleway.com"},{"url":"https://www.scaleway.com/cloud.scaleway.com","title":null,"fancy_title":null,"internal":false,"attachment":false,"reflection":false,"clicks":0,"user_id":768,"domain":"www.scaleway.com"}],"notification_level":1,"can_flag_topic":false},"highest_post_number":1,"deleted_by":null,"actions_summary":[{"id":4,"count":0,"hidden":false,"can_act":false},{"id":7,"count":0,"hidden":false,"can_act":false},{"id":8,"count":0,"hidden":false,"can_act":false}],"expandable_first_post":true,"chunk_size":20,"bookmarked":null,"featured_link":null});
+      })();
+      </script>
+
+    
+
+    <script>
+  Ember.RSVP.configure('onerror', function(e) {
+    // Ignore TransitionAborted exceptions that bubble up
+    if (e && e.message === "TransitionAborted") { return; }
+
+    window.onerror(e && e.message, null,null,null,e);
+  });
+
+
+</script>
+
+<script>
+
+  (function() {
+    var ps = require('preload-store').default;
+
+    Discourse.CDN = '';
+    Discourse.BaseUrl = 'community.online.net'.replace(/:[\d]*$/,"");
+    Discourse.BaseUri = '';
+    Discourse.Environment = 'production';
+    Discourse.SiteSettings = ps.get('siteSettings');
+    Discourse.LetterAvatarVersion = '5_c5b31cccf5394499269817ee339a84bb';
+    I18n.defaultLocale = 'en';
+    Discourse.start();
+    Discourse.set('assetVersion','327173ab810338d55835576e4482ad35');
+    Discourse.Session.currentProp("disableCustomCSS", false);
+    Discourse.HighlightJSPath = "/highlight-js/community.online.net/133b1767dbeecf92cad6dfc38d42cde22195db05.js";
+  })();
+</script>
+
+<script src="Scaleway%20API%20documentation-2_files/browser-update-f57286e74ddbc53aa899689b01ef467078911e4138050c.js"></script>
+
+
+    
+
+      
+
+  
+
+<div style="position:fixed; top:0; left:0; overflow:hidden;"><input style="position:absolute; left:-300px;" id="focus_retriever" readonly="true" type="text"></div></body></html>
